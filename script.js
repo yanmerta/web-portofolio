@@ -108,3 +108,30 @@ scrollBottom.forEach((el) => observer.observe(el));
 
 const scrollTop = document.querySelectorAll(".scroll-top");
 scrollTop.forEach((el) => observer.observe(el));
+
+const toggleModeButton = document.getElementById("toggle-mode");
+const body = document.body;
+
+toggleModeButton.addEventListener("click", () => {
+  // Toggle dark mode class on body
+  body.classList.toggle("dark-mode");
+
+  // Change icon based on mode
+  const isDarkMode = body.classList.contains("dark-mode");
+  toggleModeButton.innerHTML = isDarkMode
+    ? '<i class="bx bx-sun"></i>'
+    : '<i class="bx bx-moon"></i>';
+
+  // Save the user's preference in localStorage
+  localStorage.setItem("darkMode", isDarkMode);
+});
+
+// Check user's preference in localStorage
+const savedDarkMode = localStorage.getItem("darkMode");
+
+if (savedDarkMode === "true") {
+  // If user prefers dark mode, add dark mode class to body
+  body.classList.add("dark-mode");
+  // Change icon to sun
+  toggleModeButton.innerHTML = '<i class="bx bx-sun"></i>';
+}

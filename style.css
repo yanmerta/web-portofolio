@@ -23,6 +23,13 @@
     0 0 40px rgba(18, 247, 255, 0.3), 0 0 70px rgba(18, 247, 255, 0.3),
     0 0 80px rgba(18, 247, 255, 0.3), 0 0 100px rgba(18, 247, 255, 0.3),
     0 0 150px rgba(18, 247, 255, 0.3);
+  --light-text-color: #000000;
+  --light-hover-color: #12f7ff;
+  --light-bg-color: #ffffff;
+
+  --dark-text-color: #f5f5f5;
+  --dark-hover-color: #12f7ff;
+  --dark-bg-color: #250821;
 }
 
 ::-webkit-scrollbar {
@@ -74,14 +81,30 @@ span {
   color: var(--hover-color);
 }
 
+body.dark-mode {
+  --text-color: var(--dark-text-color);
+  --hover-color: var(--dark-hover-color);
+  --bg-color: var(--dark-bg-color);
+}
+
+body:not(.dark-mode) {
+  --text-color: var(--light-text-color);
+  --hover-color: var(--light-hover-color);
+  --bg-color: var(--light-bg-color);
+}
+
 .navlist {
   display: flex;
 }
 
 .navlist a {
+  display: inline-block;
   color: var(--text-color);
   font-weight: 500;
   padding: 10px 20px;
+  animation: slideAnimation 1s ease forwards;
+  animation-delay: calc(0.3s * var(--i));
+  opacity: 0;
 }
 
 .navlist a:hover {
@@ -603,7 +626,7 @@ section {
   text-align: center;
 }
 
-.filter-buttons .btn {
+.filter-buttons .button {
   background: none;
   outline: none;
   border: none;
@@ -615,7 +638,7 @@ section {
   color: var(--text-color);
 }
 
-.filter-buttons .btn:hover {
+.filter-buttons .button:hover {
   color: var(--hover-color);
 }
 
@@ -848,6 +871,17 @@ footer a i {
   100% {
     background: var(--hover-color);
     box-shadow: var(--neon-box-shadow);
+  }
+}
+
+@keyframes slideAnimation {
+  0% {
+    opacity: 0;
+    transform: translate(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
   }
 }
 

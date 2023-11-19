@@ -15,12 +15,13 @@
     <header>
       <div class="logo"><span>W</span>eb Portofolio</div>
       <ul class="navlist">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#portofolio">Portofolio</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#home" style="--i:1;">Home</a></li>
+        <li><a href="#about" style="--i:2;">About</a></li>
+        <li><a href="#services" style="--i:3;">Services</a></li>
+        <li><a href="#skills" style="--i:4;">Skills</a></li>
+        <li><a href="#portofolio" style="--i:5;">Portofolio</a></li>
+        <li><a href="#contact" style="--i:6;">Contact</a></li>
+        <a id="toggle-mode"><i class='bx bx-moon'></i></a>
       </ul>
       <div id="menu-icon" class="bx bx-menu"></div>
     </header>
@@ -45,7 +46,7 @@
             <div class="info-box">
                 <div class="email-info">
                     <h5>Email :</h5>
-                    <span>Yanmert88@gmail.com</span>
+                    <span><i class='bx bx-envelope' ></i>&nbsp;Yanmert88@gmail.com</span>
                 </div>
             <!-- <div class="behance-info">
                 <h5>behance :</h5>
@@ -54,15 +55,15 @@
           </div>
 
         <div class="btn-box">
-            <a href="#" class="btn">Contact Me</a>
+            <a href="#contact" class="btn">Contact Me</a>
             <!-- <a href="#" class="btn">Contact Me</a> -->
         </div>
         <div class="social-icons">
-            <a href="#"><i class='bx bxl-facebook' ></i></a>
-            <a href="#"><i class='bx bxl-instagram' ></i></a>
-            <a href="#"><i class='bx bxl-github' ></i></a>
-            <a href="#"><i class='bx bxl-tiktok' ></i></a>
-            <a href="#"><i class='bx bxl-linkedin' ></i></a>
+            <a href="https://www.facebook.com/wyn.merta.56?mibextid=ZbWKwL"><i class='bx bxl-facebook' ></i></a>
+            <a href="https://instagram.com/yanmerta_88?igshid=OGQ5ZDc2ODk2ZA=="><i class='bx bxl-instagram' ></i></a>
+            <a href="https://github.com/yanmerta"><i class='bx bxl-github' ></i></a>
+            <a href="https://www.tiktok.com/@mertaa_88?is_from_webapp=1&sender_device=pc"><i class='bx bxl-tiktok' ></i></a>
+            <a href="https://www.linkedin.com/in/yan-merta-533914265/"><i class='bx bxl-linkedin' ></i></a>
         </div>
         </div>
 
@@ -152,13 +153,13 @@
           <p>I am Wayan Merta, a student of Informatics Engineering Department with focus on Software Engineering Technology Study Program. I have a deep interest in technology, particularly in programming language development and web design. I am pursuing the knowledge and skills necessary to become a competent professional in this field.</p>
 
           <div class="btn-box">
-            <a href="#" class="btn">Download CV</a>
+            <a href="image/Cv_I Wayan Merta.pdf" class="btn">Download CV</a>
           </div>
       </div>
     </section>
 
     <section id="services" class="services">
-      <div class="main-text">
+      <div class="main-text scroll-scale">
         <span>what i will do for you</span>
         <h2>Our Services</h2>
       </div>
@@ -202,13 +203,13 @@
     </section>
 
     <section id="skills" class="skills">
-      <div class="main-text">
+      <div class="main-text scroll-scale">
         <span>technical and profesional</span>
         <h2>My Skills</h2>
       </div>
 
       <div class="skill-main">
-        <div class="skill-left">
+        <div class="skill-left scroll-scale">
           <h3>Technical Skills</h3>
           <div class="skill-bar">
             <div class="info">
@@ -250,7 +251,7 @@
                         </div>
                       </div>
       </div>
-      <div class="skill-right">
+      <div class="skill-right scroll-scale">
         <h3>Professional Skills</h3>
         <div class="professional">
         <div class="box">
@@ -289,20 +290,20 @@
     </section>
 
     <section id="portofolio" class="portofolio">
-      <div class="main-text">
+      <div class="main-text scroll-scale">
         <span>What i will do for you</span>
         <h2>Latest Project</h2>
       </div>
 
       <div class="container">
         <div class="filter-buttons">
-          <button class="btn" data-filter="all">All</button>
-          <button class="btn" data-filter=".mobile">Mobile App</button>
-          <button class="btn" data-filter=".wordpress">Wordpress</button>
-          <button class="btn" data-filter=".web">Web App</button>
+          <button class="button" data-filter="all">All</button>
+          <button class="button" data-filter=".mobile">Mobile App</button>
+          <button class="button" data-filter=".wordpress">Wordpress</button>
+          <button class="button" data-filter=".web">Web App</button>
         </div>
 
-         <div class="portofolio-gallery">
+         <div class="portofolio-gallery scroll-bottom">
       <div class="port-box mix mobile">
         <div class="port-image">
           <img src="image/gambar.jpeg" alt="">
@@ -373,12 +374,12 @@
 </section>
 
 <section id="contact" class="contact">
-  <div class="main-text">
+  <div class="main-text scroll-scale">
     <span>Ask me Question</span>
     <h2>Contact Me</h2>
   </div>
 
-  <form action="#">
+  <form action="#" class="scroll-bottom">
     <input type="text" placeholder="Your Name">
     <input type="text" placeholder="Your  Email">
     <input type="text" placeholder="Your Address">
@@ -392,7 +393,7 @@
 </section>
 
 <footer>
-  <p>Copyright &copy; 2023 by yanmerta || All Right Reser</p>
+  <p class="scroll-scale">Copyright &copy; 2023 by yanmerta || All Right Reser</p>
   <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
 </footer>
 
