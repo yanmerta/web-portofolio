@@ -26,13 +26,22 @@
     0 0 40px rgba(18, 247, 255, 0.3), 0 0 70px rgba(18, 247, 255, 0.3),
     0 0 80px rgba(18, 247, 255, 0.3), 0 0 100px rgba(18, 247, 255, 0.3),
     0 0 150px rgba(18, 247, 255, 0.3);
-  --light-text-color: #000000;
-  --light-hover-color: #12f7ff;
-  --light-bg-color: #ffffff;
 
+  /* Light theme variables dengan warna teks yang lebih gelap */
+  --light-text-color: #333333;
+  --light-subtitle-color: #666666;
+  --light-hover-color: #0097b2;
+  --light-bg-color: #ffffff;
+  --light-secon-bg-color: #f5f5f5;
+  --light-neon-box-shadow: 0 0 0.5rem #0097b2;
+
+  /* Dark theme variables */
   --dark-text-color: #f5f5f5;
+  --dark-subtitle-color: #bdbdbd;
   --dark-hover-color: #12f7ff;
-  --dark-bg-color: #250821;
+  --dark-bg-color: #1a1a1a;
+  --dark-secon-bg-color: #292e33;
+  --dark-neon-box-shadow: 0 0 0.5rem #12f7ff;
 }
 
 ::-webkit-scrollbar {
@@ -84,16 +93,56 @@ span {
   color: var(--hover-color);
 }
 
-body.dark-mode {
-  --text-color: var(--dark-text-color);
-  --hover-color: var(--dark-hover-color);
-  --bg-color: var(--dark-bg-color);
-}
-
+/* Light mode styles dengan penyesuaian warna teks */
 body:not(.dark-mode) {
   --text-color: var(--light-text-color);
   --hover-color: var(--light-hover-color);
   --bg-color: var(--light-bg-color);
+  --secon-bg-color: var(--light-secon-bg-color);
+  --neon-box-shadow: var(--light-neon-box-shadow);
+}
+
+/* Penyesuaian khusus untuk teks dalam light mode */
+body:not(.dark-mode) .home-content h1,
+body:not(.dark-mode) .about-content h2,
+body:not(.dark-mode) .about-content h3,
+body:not(.dark-mode) .main-text h2 {
+  color: var(--light-text-color);
+}
+
+body:not(.dark-mode) .home-content p,
+body:not(.dark-mode) .about-content p {
+  color: var(--light-subtitle-color);
+}
+
+/* About section specific styles */
+body:not(.dark-mode) .about-content span {
+  color: var(--light-subtitle-color);
+}
+
+body:not(.dark-mode) .about-content p {
+  color: var(--light-subtitle-color);
+}
+
+/* Dark mode styles tetap sama */
+body.dark-mode {
+  --text-color: var(--dark-text-color);
+  --hover-color: var(--dark-hover-color);
+  --bg-color: var(--dark-bg-color);
+  --secon-bg-color: var(--dark-secon-bg-color);
+  --neon-box-shadow: var(--dark-neon-box-shadow);
+}
+
+/* Penyesuaian untuk mode gelap tetap sama */
+body.dark-mode .about,
+body.dark-mode .skills,
+body.dark-mode .portofolio {
+  background: var(--dark-secon-bg-color);
+}
+
+body.dark-mode .about-content p,
+body.dark-mode .home-content p {
+  color: var(--dark-subtitle-color);
 }
 
 .navlist {
@@ -298,14 +347,27 @@ section {
   position: relative;
   z-index: 1;
   overflow: hidden;
+  /* Tambahan untuk mobile */
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px;
 }
 
 .social-icons a i {
   font-size: 1.5rem;
+  pointer-events: none; /* Mencegah masalah touch di beberapa perangkat */
 }
 
 .social-icons a:hover {
   color: var(--bg-color);
+}
+
+.social-icons a:active {
+  color: var(--bg-color);
+  transform: scale(0.95); /* Memberikan feedback saat ditekan */
 }
 
 .social-icons a::before {
@@ -1007,9 +1069,9 @@ footer a i {
     margin-top: 5rem;
   }
 
-  .social-icons {
+  /* .social-icons {
     margin-top: 2rem;
-  }
+  } */
 }
 
 @media (max-width: 768px) {
@@ -1071,6 +1133,15 @@ footer a i {
   }
   footer p {
     font-size: 0.8rem;
+  }
+  .social-icons {
+    width: 240px; /* Sedikit lebih lebar untuk mobile */
+    height: 50px; /* Sedikit lebih tinggi untuk mobile */
+  }
+
+  .social-icons a {
+    width: 55px; /* Area sentuh yang lebih besar */
+    height: 55px;
   }
 }
 

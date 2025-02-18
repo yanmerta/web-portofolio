@@ -114,26 +114,49 @@ scrollTop.forEach((el) => observer.observe(el));
 const toggleModeButton = document.getElementById("toggle-mode");
 const body = document.body;
 
+// Function to check if it's nighttime (between 6 PM and 6 AM)
+function isNightTime() {
+  const hour = new Date().getHours();
+  return hour >= 18 || hour < 6;
+}
+
+// Function to update dark mode
+function updateDarkMode() {
+  const shouldBeDark = isNightTime();
+
+  // Update body class
+  body.classList.toggle("dark-mode", shouldBeDark);
+
+  // Update button icon
+  toggleModeButton.innerHTML = shouldBeDark
+    ? '<i class="bx bx-sun"></i>'
+    : '<i class="bx bx-moon"></i>';
+
+  // Save the current state
+  localStorage.setItem("darkMode", shouldBeDark);
+}
+
+// Check dark mode every minute
+setInterval(updateDarkMode, 60000);
+
+// Initial check when page loads
+updateDarkMode();
+
+// Manual toggle still works
 toggleModeButton.addEventListener("click", () => {
-  // Toggle dark mode class on body
   body.classList.toggle("dark-mode");
 
-  // Change icon based on mode
   const isDarkMode = body.classList.contains("dark-mode");
   toggleModeButton.innerHTML = isDarkMode
     ? '<i class="bx bx-sun"></i>'
     : '<i class="bx bx-moon"></i>';
 
-  // Save the user's preference in localStorage
   localStorage.setItem("darkMode", isDarkMode);
 });
 
-// Check user's preference in localStorage
+// Check saved preference on page load
 const savedDarkMode = localStorage.getItem("darkMode");
-
 if (savedDarkMode === "true") {
-  // If user prefers dark mode, add dark mode class to body
   body.classList.add("dark-mode");
-  // Change icon to sun
   toggleModeButton.innerHTML = '<i class="bx bx-sun"></i>';
 }
