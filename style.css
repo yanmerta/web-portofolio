@@ -1335,3 +1335,37 @@ footer a i {
     height: 44px;
   }
 }
+
+@media (max-width: 420px) {
+  html {
+    font-size: 80%;
+  }
+  footer p {
+    font-size: 0.6rem;
+  }
+  .filter-buttons .btn {
+    font-size: 0.8rem;
+  }
+  .img-about img {
+    width: 300px;
+  }
+  .info-about1,
+  .info-about2,
+  .info-about3 {
+    display: none;
+  }
+
+  .img-about p {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 365px) {
+  .qualification__data {
+    width: 90%;
+  }
+}
+@media (max-width: 450px) {
+  .qualification__data {
+    width: 80%;
+  }
+}
