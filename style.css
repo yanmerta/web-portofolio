@@ -681,12 +681,14 @@ section {
 }
 
 .service-btn {
-  display: flex;
-  justify-content: center;
+  display: flex !important;
+  justify-content: center !important;
   align-items: center;
-  width: 100%;
-  max-width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
   margin-top: 1rem;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .service-btn .btn {
