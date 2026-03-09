@@ -655,9 +655,11 @@ section {
 }
 
 .service-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 100%;
-  justify-content: center;
   margin-top: 1rem;
 }
 
@@ -670,6 +672,15 @@ section {
 
 .service-box:hover {
   transform: translateY(-0.7rem);
+}
+
+/* Tombol di dalam service-box dan about selalu di tengah */
+.service-box .btn-box,
+.about-content .btn-box {
+  justify-content: center;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .service-box p {
@@ -990,6 +1001,7 @@ section {
 .formBtn {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
   margin-top: 0.5rem;
 }
