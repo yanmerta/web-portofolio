@@ -71,7 +71,7 @@
 
     <div class="home-image scroll-scale">
       <div class="img-box">
-        <img src="image/mertam.png" alt="">
+        <img src="image/merta7.png" alt="">
       </div>
       <div class="liquid-shape">
         <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -115,7 +115,7 @@
 
                     M440.5,306Q445,362,408,411Q371,460,310.5,466.5Q250,473,204,441.5Q158,410,108.5,385.5Q59,361,41,305.5Q23,250,30.5,189Q38,128,86,88.5Q134,49,192,63Q250,77,300,76.5Q350,76,403.5,103.5Q457,131,446.5,190.5Q436,250,440.5,306Z;
 
-                    M427,302Q429,354,382,375.5Q335,397,292.5,444Q250,491,211,438Q172,385,107.5,377.5Q43,370,50.5,310Q58,250,84.5,210Q111,170,137.5,136Q164,102,207,52Q250,2,292.5,52.5Q335,103,391,119.5Q447,136,436,193Q425,250,427,302Z;
+                    M427,302Q429,354,382,375.5Q335,397,292.5,444Q250,491,211,438Q172,385,107.5,377.5Q43,370 ,50.5,310Q58,250,84.5,210Q111,170,137.5,136Q164,102,207,52Q250,2,292.5,52.5Q335,103,391,119.5Q447,136,436,193Q425,250,427,302Z;
 
                     M444,295.5Q408,341,368,363Q328,385,289,439Q250,493,203.5,452.5Q157,412,132,372.5Q107,333,102.5,291.5Q98,250,85.5,199Q73,148,115,118.5Q157,89,203.5,77Q250,65,288,92Q326,119,377,133Q428,147,454,198.5Q480,250,444,295.5Z;
                     "></animate>
@@ -597,12 +597,18 @@
       <h2>Contact Me</h2>
     </div>
 
-    <form action="#" class="scroll-bottom">
-      <input type="text" placeholder="Your Name">
-      <input type="text" placeholder="Your  Email">
-      <input type="text" placeholder="Your Address">
-      <input type="text" placeholder="Your Phone Number">
-      <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
+    <form id="contactForm" class="scroll-bottom">
+
+      <input type="text" name="name" placeholder="Your Name" required>
+
+      <input type="email" name="email" placeholder="Your Email" required>
+
+      <input type="text" name="address" placeholder="Your Address">
+
+      <input type="text" name="phone" placeholder="Your Phone Number">
+
+      <textarea name="message" cols="30" rows="10" placeholder="Your Message"></textarea>
+
       <div class="btn-box formBtn">
         <button type="submit" class="btn">Send Message</button>
       </div>
