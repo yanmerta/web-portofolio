@@ -659,22 +659,60 @@ section {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    transparent 50%,
-    rgba(0, 0, 0, 0.65) 100%
+    transparent 40%,
+    rgba(0, 0, 0, 0.75) 100%
   );
   display: flex;
   align-items: flex-end;
-  padding: 1rem 1.2rem;
+  padding: 1.2rem 1.4rem;
+}
+
+.slide-badge-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .slide-badge {
+  display: inline-block;
   background: var(--hover-color);
   color: #000;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding: 3px 12px;
+  padding: 2px 10px;
   border-radius: 20px;
   letter-spacing: 1px;
+  width: fit-content;
+}
+
+.slide-badge--active {
+  background: #ff6b35;
+  animation: pulseBadge 2s infinite;
+}
+
+@keyframes pulseBadge {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 107, 53, 0);
+  }
+}
+
+.slide-badge-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.3px;
+}
+
+.exp-year--active {
+  background: rgba(255, 107, 53, 0.12);
+  border-color: #ff6b35;
+  color: #ff6b35;
+  font-weight: 700;
 }
 
 /* Slider Buttons */

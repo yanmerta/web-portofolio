@@ -354,7 +354,10 @@ qualTabs.forEach((tab) => {
     );
   }
 
-  // Init first state
+  // Init first state — remove any stale classes first
+  slides.forEach((s) => s.classList.remove("active"));
+  dots.forEach((d) => d.classList.remove("active"));
+  cards.forEach((c) => c.classList.remove("exp-card--active"));
   slides[0].classList.add("active");
   dots[0].classList.add("active");
   cards[0].classList.add("exp-card--active");
