@@ -13,7 +13,6 @@
    ROOT VARIABLES — Dark Mode (Default)
    ============================================= */
 :root {
-  /* Dark theme (default) */
   --text-color: #f5f5f5;
   --subtitle-color: #bdbdbd;
   --hover-color: #12f7ff;
@@ -37,7 +36,7 @@
 }
 
 /* =============================================
-   LIGHT MODE — override via class on <body>
+   LIGHT MODE
    ============================================= */
 body.light-mode {
   --text-color: #1a1a2e;
@@ -154,7 +153,6 @@ span {
   transition: background 0.3s ease;
 }
 
-/* Theme toggle button */
 .theme-toggle {
   cursor: pointer;
   font-size: 1.4rem;
@@ -557,6 +555,332 @@ section {
 }
 
 /* =============================================
+   WORK EXPERIENCE SECTION
+   ============================================= */
+.work-experience {
+  background: var(--bg-color);
+  padding: 100px 10%;
+}
+
+.work-exp-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+/* --- Photo Slider --- */
+.exp-slider-container {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(18, 247, 255, 0.15);
+  border: 2px solid var(--border-color);
+  background: var(--secon-bg-color);
+  aspect-ratio: 4/3;
+}
+
+.exp-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.exp-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  pointer-events: none;
+}
+
+.exp-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.exp-slide.slide-out-left {
+  opacity: 0;
+  transform: translateX(-40px) scale(0.97);
+}
+
+.exp-slide.slide-in-right {
+  animation: slideInRight 0.7s ease forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.slide-img-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 6s ease;
+}
+
+.exp-slide.active .slide-img-wrapper img {
+  transform: scale(1.06);
+}
+
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem 1.2rem;
+}
+
+.slide-badge {
+  background: var(--hover-color);
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+/* Slider Buttons */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid var(--hover-color);
+  color: var(--hover-color);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.slider-btn:hover {
+  background: var(--hover-color);
+  color: #000;
+}
+
+.slider-prev {
+  left: 10px;
+}
+.slider-next {
+  right: 10px;
+}
+
+/* Dots */
+.slider-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  z-index: 10;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+  border: 1px solid var(--hover-color);
+}
+
+.dot.active {
+  background: var(--hover-color);
+  transform: scale(1.3);
+  box-shadow: 0 0 6px var(--hover-color);
+}
+
+/* --- Experience Cards --- */
+.exp-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.exp-card {
+  background: var(--secon-bg-color);
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.2rem 1.4rem;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 0;
+  background: var(--hover-color);
+  transition: height 0.35s ease;
+  border-radius: 0 0 3px 3px;
+}
+
+.exp-card:hover::before,
+.exp-card--active::before {
+  height: 100%;
+}
+
+.exp-card:hover,
+.exp-card--active {
+  border-color: var(--hover-color);
+  box-shadow: 0 0 18px rgba(18, 247, 255, 0.12);
+  transform: translateX(4px);
+}
+
+.exp-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+.exp-icon-wrap {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--bg-color);
+  border: 1.5px solid var(--hover-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--hover-color);
+  font-size: 1.3rem;
+  box-shadow: var(--neon-box-shadow);
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.exp-card:hover .exp-icon-wrap,
+.exp-card--active .exp-icon-wrap {
+  background: var(--hover-color);
+  color: #000;
+}
+
+.exp-title-wrap {
+  flex: 1;
+}
+
+.exp-title-wrap h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.3;
+  margin-bottom: 0.15rem;
+}
+
+.exp-company {
+  font-size: 0.78rem;
+  color: var(--hover-color);
+  font-weight: 500;
+}
+
+.exp-year {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--subtitle-color);
+  background: var(--bg-color);
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.exp-desc {
+  font-size: 0.82rem;
+  color: var(--subtitle-color);
+  line-height: 1.65;
+  display: none;
+  margin-top: 0.4rem;
+}
+
+.exp-card--active .exp-desc,
+.exp-card:hover .exp-desc {
+  display: block;
+}
+
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  display: none;
+}
+
+.exp-card--active .exp-tags,
+.exp-card:hover .exp-tags {
+  display: flex;
+}
+
+.exp-tags span {
+  font-size: 0.7rem;
+  padding: 2px 10px;
+  border-radius: 20px;
+  background: rgba(18, 247, 255, 0.08);
+  border: 1px solid var(--border-color);
+  color: var(--hover-color);
+  font-weight: 500;
+}
+
+/* =============================================
    QUALIFICATION
    ============================================= */
 .qualification__tabs {
@@ -693,7 +1017,6 @@ section {
   align-items: center;
 }
 
-/* Tombol Read More — override semua style dari .btn-box */
 .service-btn,
 .btn-box.service-btn,
 div.service-btn {
@@ -720,7 +1043,6 @@ div.service-btn {
   transform: translateY(-0.7rem);
 }
 
-/* Semua .btn-box di dalam service-box dan about → tengah */
 .service-box .btn-box,
 .about-content .btn-box {
   justify-content: center;
@@ -1179,7 +1501,6 @@ footer a i {
     width: 62%;
   }
 }
-
 @keyframes glow {
   0% {
     background: var(--bg-color);
@@ -1190,7 +1511,6 @@ footer a i {
     box-shadow: var(--neon-box-shadow);
   }
 }
-
 @keyframes slideAnimation {
   0% {
     opacity: 0;
@@ -1216,6 +1536,9 @@ footer a i {
   section {
     padding: 70px 5%;
   }
+  .work-experience {
+    padding: 70px 5%;
+  }
 
   .navlist a {
     padding: 8px 15px;
@@ -1230,16 +1553,24 @@ footer a i {
   .home-content {
     margin-top: 5rem;
   }
-
   .qualification__data {
     width: 85%;
   }
   .qualification__tabs {
     width: 100%;
   }
-
   .skill-main {
     column-gap: 30px;
+  }
+
+  .work-exp-wrapper {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .exp-slider-container {
+    max-width: 500px;
+    margin: 0 auto;
   }
 }
 
@@ -1296,7 +1627,6 @@ footer a i {
   .img-box {
     top: 0;
   }
-
   .liquid-shape {
     width: 80%;
     height: 80%;
@@ -1305,7 +1635,6 @@ footer a i {
   .about {
     flex-direction: column-reverse;
   }
-
   .skill-main {
     grid-template-columns: 1fr;
   }
@@ -1313,19 +1642,15 @@ footer a i {
   .filter-buttons {
     margin: 2.5rem 0;
   }
-
   footer p {
     font-size: 0.8rem;
   }
-
   .social-icons {
     width: auto;
   }
-
   .btn-box {
     max-width: 100%;
   }
-
   .qualification__data {
     width: 90%;
   }
@@ -1333,9 +1658,19 @@ footer a i {
     width: 100%;
     max-width: 100%;
   }
-
   .professional {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .work-exp-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .exp-card-header {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .exp-year {
+    order: 3;
   }
 }
 
@@ -1350,7 +1685,6 @@ footer a i {
   .home {
     gap: 2em;
   }
-
   .home-content h1 {
     font-size: 2rem;
   }
@@ -1361,7 +1695,6 @@ footer a i {
   footer p {
     font-size: 0.6rem;
   }
-
   .filter-buttons .button {
     font-size: 0.8rem;
   }
@@ -1369,13 +1702,11 @@ footer a i {
   .img-about img {
     width: 280px;
   }
-
   .info-about1,
   .info-about2,
   .info-about3 {
     display: none;
   }
-
   .img-about p {
     font-size: 1rem;
   }
@@ -1384,7 +1715,6 @@ footer a i {
     width: 130px;
     font-size: 0.9rem;
   }
-
   .professional {
     grid-template-columns: 1fr;
   }
@@ -1397,7 +1727,6 @@ footer a i {
     width: 100%;
     gap: 1rem;
   }
-
   .qualification__title {
     font-size: 0.85rem;
   }
@@ -1407,9 +1736,20 @@ footer a i {
   .qualification__calendar {
     font-size: 0.7rem;
   }
-
   .portofolio-gallery {
     grid-template-columns: 1fr;
+  }
+
+  .exp-card {
+    padding: 1rem;
+  }
+  .exp-icon-wrap {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+  .exp-title-wrap h3 {
+    font-size: 0.88rem;
   }
 }
 
@@ -1428,7 +1768,6 @@ footer a i {
   .qualification__tabs {
     width: 100%;
   }
-
   .qualification__title {
     font-size: 0.8rem;
   }
@@ -1447,7 +1786,6 @@ footer a i {
     width: 100%;
     max-width: 200px;
   }
-
   .social-icons a {
     width: 44px;
     height: 44px;

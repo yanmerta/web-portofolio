@@ -117,13 +117,11 @@ if (menuIcon && navlist) {
     navlist.classList.toggle("open");
   });
 
-  // Tutup menu saat scroll
   window.addEventListener("scroll", () => {
     menuIcon.classList.remove("bx-x");
     navlist.classList.remove("open");
   });
 
-  // Tutup menu saat klik link navigasi
   navlist.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
       menuIcon.classList.remove("bx-x");
@@ -154,19 +152,15 @@ document
 
 /* =============================================
    THEME TOGGLE
-   Dark = default (tidak ada class di body)
-   Light = body.classList berisi "light-mode"
    ============================================= */
 const toggleModeButton = document.getElementById("toggle-mode");
 const body = document.body;
 
-// Cek apakah saat ini siang hari (06:00 - 18:00)
 function isDayTime() {
   const hour = new Date().getHours();
   return hour >= 6 && hour < 18;
 }
 
-// Terapkan tema berdasarkan kondisi
 function applyTheme(isLight) {
   if (isLight) {
     body.classList.add("light-mode");
@@ -176,52 +170,43 @@ function applyTheme(isLight) {
   updateToggleIcon(isLight);
 }
 
-// Update ikon tombol toggle
 function updateToggleIcon(isLight) {
   if (!toggleModeButton) return;
   toggleModeButton.innerHTML = isLight
-    ? '<i class="bx bx-moon"></i>' // siang → tawarkan mode gelap
-    : '<i class="bx bx-sun"></i>'; // malam → tawarkan mode terang
+    ? '<i class="bx bx-moon"></i>'
+    : '<i class="bx bx-sun"></i>';
 }
 
-// Inisialisasi tema saat halaman dimuat
 function initTheme() {
-  const saved = localStorage.getItem("themeMode"); // "light" | "dark" | null
-
+  const saved = localStorage.getItem("themeMode");
   if (saved === "light") {
     applyTheme(true);
   } else if (saved === "dark") {
     applyTheme(false);
   } else {
-    // Belum ada preferensi tersimpan → gunakan waktu sistem
     applyTheme(isDayTime());
   }
 }
 
-// Perbarui tema otomatis setiap menit (jika belum ada preferensi manual)
 setInterval(() => {
   if (!localStorage.getItem("themeMode")) {
     applyTheme(isDayTime());
   }
 }, 60000);
 
-// Tombol toggle manual
 if (toggleModeButton) {
   toggleModeButton.addEventListener("click", () => {
     const isCurrentlyLight = body.classList.contains("light-mode");
     const newIsLight = !isCurrentlyLight;
-
     applyTheme(newIsLight);
-    // Simpan preferensi manual
     localStorage.setItem("themeMode", newIsLight ? "light" : "dark");
   });
 }
 
-// Jalankan inisialisasi
 initTheme();
 
 /* =============================================
-   QUALIFICATION TABS (Pendidikan / Pengalaman)
+   QUALIFICATION TABS
    ============================================= */
 const qualTabs = document.querySelectorAll(".qualification__button");
 const qualContents = document.querySelectorAll(".qualification__content");
@@ -246,6 +231,140 @@ qualTabs.forEach((tab) => {
   });
 });
 
+/* =============================================
+   EXPERIENCE PHOTO SLIDER
+   ============================================= */
+(function () {
+  const slides = document.querySelectorAll(".exp-slide");
+  const dots = document.querySelectorAll(".dot");
+  const cards = document.querySelectorAll(".exp-card");
+  const prevBtn = document.getElementById("sliderPrev");
+  const nextBtn = document.getElementById("sliderNext");
+
+  if (!slides.length) return;
+
+  let currentIndex = 0;
+  let autoplayTimer = null;
+
+  function goToSlide(index, direction) {
+    // Remove active from current
+    slides[currentIndex].classList.remove("active");
+    dots[currentIndex].classList.remove("active");
+    cards[currentIndex].classList.remove("exp-card--active");
+
+    // Update index
+    currentIndex = (index + slides.length) % slides.length;
+
+    // Animate in new slide
+    slides[currentIndex].classList.add("active");
+    dots[currentIndex].classList.add("active");
+    cards[currentIndex].classList.add("exp-card--active");
+  }
+
+  function nextSlide() {
+    goToSlide(currentIndex + 1, "next");
+  }
+
+  function prevSlide() {
+    goToSlide(currentIndex - 1, "prev");
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(nextSlide, 3500);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  // Button events
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      nextSlide();
+      stopAutoplay();
+      startAutoplay();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      prevSlide();
+      stopAutoplay();
+      startAutoplay();
+    });
+  }
+
+  // Dot events
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      const idx = parseInt(dot.getAttribute("data-dot"));
+      goToSlide(idx);
+      stopAutoplay();
+      startAutoplay();
+    });
+  });
+
+  // Card click events — sync slider to card
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const idx = parseInt(card.getAttribute("data-card"));
+      goToSlide(idx);
+      stopAutoplay();
+      startAutoplay();
+    });
+  });
+
+  // Pause autoplay on hover
+  const sliderContainer = document.querySelector(".exp-slider-container");
+  if (sliderContainer) {
+    sliderContainer.addEventListener("mouseenter", stopAutoplay);
+    sliderContainer.addEventListener("mouseleave", startAutoplay);
+  }
+
+  // Touch swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  if (sliderContainer) {
+    sliderContainer.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      },
+      { passive: true },
+    );
+
+    sliderContainer.addEventListener(
+      "touchend",
+      (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) nextSlide();
+          else prevSlide();
+          stopAutoplay();
+          startAutoplay();
+        }
+      },
+      { passive: true },
+    );
+  }
+
+  // Init first state
+  slides[0].classList.add("active");
+  dots[0].classList.add("active");
+  cards[0].classList.add("exp-card--active");
+
+  startAutoplay();
+})();
+
+/* =============================================
+   CONTACT FORM
+   ============================================= */
 const scriptURL =
   "https://script.google.com/macros/s/AKfycbwyk6Y58ZWv0z5SfwizH-y_kO3VJv8Anpx0otR5HyBp5v8Zf8GTFtYCrPCQKajr_oY/exec";
 const form = document.getElementById("contactForm");
