@@ -351,3 +351,54 @@ if (form) {
   goTo(0);
   startAuto();
 })();
+/* =============================================
+   HEADER CLOCK — Tambahkan ke script.js
+   ============================================= */
+(function () {
+  const DAYS_ID = "clockDay";
+  const TIME_ID = "clockTime";
+
+  const DAYS = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+  const MONTHS = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Mei",
+    "Jun",
+    "Jul",
+    "Agu",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Des",
+  ];
+
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
+
+  function updateClock() {
+    const now = new Date();
+    const dayEl = document.getElementById(DAYS_ID);
+    const timeEl = document.getElementById(TIME_ID);
+
+    if (!dayEl || !timeEl) return;
+
+    const dayName = DAYS[now.getDay()];
+    const date = now.getDate();
+    const month = MONTHS[now.getMonth()];
+    const year = now.getFullYear();
+    const hours = pad(now.getHours());
+    const minutes = pad(now.getMinutes());
+    const seconds = pad(now.getSeconds());
+
+    // Format: Senin, 12 Mar 2026
+    dayEl.textContent = `${dayName}, ${date} ${month} ${year}`;
+    // Format: 14:35:22
+    timeEl.textContent = `${hours}:${minutes}:${seconds}`;
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+})();
