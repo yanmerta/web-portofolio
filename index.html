@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="UTF-8" />
@@ -14,65 +14,66 @@
   <header>
     <div class="logo"><span>W</span>eb Portofolio</div>
     <ul class="navlist">
-      <li><a href="#home" style="--i:1;" data-lang-key="nav_home">Home</a></li>
-      <li><a href="#about" style="--i:2;" data-lang-key="nav_about">About</a></li>
-      <li><a href="#experience-work" style="--i:3;" data-lang-key="nav_experience">Experience</a></li>
-      <li><a href="#services" style="--i:4;" data-lang-key="nav_services">Services</a></li>
-      <li><a href="#skills" style="--i:5;" data-lang-key="nav_skills">Skills</a></li>
-      <li><a href="#educationbg" style="--i:6;" data-lang-key="nav_journey">Journey</a></li>
-      <li><a href="#portofolio" style="--i:7;" data-lang-key="nav_portfolio">Portofolio</a></li>
-      <li><a href="#contact" style="--i:8;" data-lang-key="nav_contact">Contact</a></li>
+      <li><a href="#home" style="--i:1;" data-i18n="nav.home">Home</a></li>
+      <li><a href="#about" style="--i:2;" data-i18n="nav.about">About</a></li>
+      <li><a href="#experience-work" style="--i:3;" data-i18n="nav.experience">Experience</a></li>
+      <li><a href="#services" style="--i:4;" data-i18n="nav.services">Services</a></li>
+      <li><a href="#skills" style="--i:5;" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="#educationbg" style="--i:6;" data-i18n="nav.journey">Journey</a></li>
+      <li><a href="#portofolio" style="--i:7;" data-i18n="nav.portfolio">Portofolio</a></li>
+      <li><a href="#contact" style="--i:8;" data-i18n="nav.contact">Contact</a></li>
+
       <!-- Language Switcher -->
       <li class="lang-switcher-nav" style="--i:9;">
-        <button id="lang-toggle" class="lang-btn" title="Switch Language">
-          <span class="lang-flag">🇬🇧</span>
-          <span class="lang-label">EN</span>
-          <i class='bx bx-chevron-down lang-arrow'></i>
+        <button class="lang-btn" id="langToggleBtn" aria-label="Switch Language">
+          <span class="lang-flag" id="langFlag">🇮🇩</span>
+          <span class="lang-label" id="langLabel">ID</span>
+          <i class='bx bx-chevron-down lang-arrow' id="langArrow"></i>
         </button>
-        <div class="lang-dropdown">
-          <button class="lang-option active" data-lang="en">
-            <span>🇬🇧</span> English
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-option active" data-lang="id" id="optId">
+            <span>🇮🇩</span> Bahasa Indonesia
           </button>
-          <button class="lang-option" data-lang="id">
-            <span>🇮🇩</span> Indonesia
+          <button class="lang-option" data-lang="en" id="optEn">
+            <span>🇬🇧</span> English
           </button>
         </div>
       </li>
+
       <a id="toggle-mode"><i class='bx bx-moon'></i></a>
     </ul>
     <div id="menu-icon" class="bx bx-menu"></div>
   </header>
 
 
-  <!-- ==================== HOME ==================== -->
   <section id="home" class="home">
     <div class="home-content scroll-scale">
-      <h1 data-lang-key="home_greeting">Hi I'm Yan Merta</h1>
+      <h1 data-i18n="home.greeting">Hi I'm Yan Merta</h1>
       <div class="change-text">
-        <h3 data-lang-key="home_and_i_am">And I'm</h3>
+        <h3 data-i18n="home.andIm">And I'm</h3>
         <h3>
-          <span class="word" data-lang-key="word_student">Student</span>
-          <span class="word" data-lang-key="word_gamers">Gamers</span>
-          <span class="word" data-lang-key="word_web_designer">Web&nbsp;Designer</span>
-          <span class="word" data-lang-key="word_frontend">Frontend&nbsp;Developer</span>
-          <span class="word" data-lang-key="word_uxui">UX/UI&nbsp;developer</span>
+          <span class="word" data-i18n-word="home.word1">Student</span>
+          <span class="word" data-i18n-word="home.word2">Gamers</span>
+          <span class="word" data-i18n-word="home.word3">Web&nbsp;Designer</span>
+          <span class="word" data-i18n-word="home.word4">Frontend&nbsp;Developer</span>
+          <span class="word" data-i18n-word="home.word5">UX/UI&nbsp;Developer</span>
         </h3>
       </div>
 
-      <p data-lang-key="home_desc">I am Wayan Merta, a student at Ganesha University of Education, specializing in the
+      <p data-i18n="home.desc">I am Wayan Merta, a student at Ganesha University of Education, specializing in the
         Software Engineering
         Technology Study Program. My passion lies in technology, with a particular focus on the development of
         programming languages and web design.</p>
 
       <div class="info-box">
         <div class="email-info">
-          <h5 data-lang-key="home_email_label">Email :</h5>
+          <h5>Email :</h5>
           <span><i class='bx bx-envelope'></i>&nbsp;wyn0468@gmail.com</span>
         </div>
       </div>
 
       <div class="btn-box">
-        <a href="#contact" class="btn" data-lang-key="home_contact_btn">Contact Me</a>
+        <a href="#contact" class="btn" data-i18n="home.contactBtn">Contact Me</a>
       </div>
       <div class="social-icons">
         <a href="https://www.facebook.com/wyn.merta.56?mibextid=ZbWKwL"><i class='bx bxl-facebook'></i></a>
@@ -124,35 +125,34 @@
     </div>
   </section>
 
-  <!-- ==================== ABOUT ==================== -->
   <section id="about" class="about">
     <div class="img-about scroll-scale">
       <img src="image/gambar.jpeg" alt="">
       <div class="info-about1">
         <span>10+</span>
-        <p data-lang-key="about_years_exp">Years Of Experience</p>
+        <p data-i18n="about.yearsExp">Years Of Experience</p>
       </div>
       <div class="info-about2">
         <span>150+</span>
-        <p data-lang-key="about_projects">Project Complete</p>
+        <p data-i18n="about.projectComplete">Project Complete</p>
       </div>
       <div class="info-about3">
         <span>200+</span>
-        <p data-lang-key="about_clients">Happy Clients</p>
+        <p data-i18n="about.happyClients">Happy Clients</p>
       </div>
     </div>
 
     <div class="about-content scroll-scale">
-      <span data-lang-key="about_intro_label">Let Me introduce myself</span>
-      <h2 data-lang-key="about_title">About Me</h2>
-      <h3 data-lang-key="about_subtitle">A story Of good</h3>
-      <p data-lang-key="about_desc">I am Wayan Merta, a student of Informatics Engineering Department with focus on
-        Software Engineering Technology
+      <span data-i18n="about.subtitle">Let Me introduce myself</span>
+      <h2 data-i18n="about.title">About Me</h2>
+      <h3 data-i18n="about.tagline">A story Of good</h3>
+      <p data-i18n="about.desc">I am Wayan Merta, a student of Informatics Engineering Department with focus on Software
+        Engineering Technology
         Study Program. I have a deep interest in technology, particularly in programming language development and web
         design. I am pursuing the knowledge and skills necessary to become a competent professional in this field.</p>
 
       <div class="btn-box">
-        <a href="image/CV_I WAYAN MERTA.pdf" class="btn" data-lang-key="about_cv_btn">Download CV</a>
+        <a href="image/CV_I WAYAN MERTA.pdf" class="btn" data-i18n="about.downloadCV">Download CV</a>
       </div>
     </div>
   </section>
@@ -160,14 +160,12 @@
   <!-- ==================== WORK EXPERIENCE ==================== -->
   <section id="experience-work" class="work-experience">
     <div class="main-text scroll-scale">
-      <span data-lang-key="exp_label">where I have worked</span>
-      <h2 data-lang-key="exp_title">Work Experience</h2>
+      <span data-i18n="exp.subtitle">where I have worked</span>
+      <h2 data-i18n="exp.title">Work Experience</h2>
     </div>
 
-    <!-- PHOTO SLIDER -->
     <div class="exp-slider-wrapper scroll-scale">
       <div class="exp-slider-track" id="expSliderTrack">
-
         <div class="exp-slide">
           <div class="exp-slide-img">
             <img src="image/Red.jpeg" alt="Magang PT. Guna Teknologi Nusantara">
@@ -177,27 +175,24 @@
             </div>
           </div>
         </div>
-
         <div class="exp-slide">
           <div class="exp-slide-img">
             <img src="image/bkpsdm.jpg" alt="Magang BKSDM Buleleng">
             <div class="exp-slide-overlay">
-              <span class="exp-slide-tag"><i class='bx bx-building'></i> <span data-lang-key="exp_slide_bksdm">Magang
-                  BKSDM — Buleleng, Bali</span></span>
+              <span class="exp-slide-tag"><i class='bx bx-building'></i> <span data-i18n="exp.slide2">Magang BKSDM —
+                  Buleleng, Bali</span></span>
             </div>
           </div>
         </div>
-
         <div class="exp-slide">
           <div class="exp-slide-img">
             <img src="image/Bri.jpeg" alt="Bank BRI Petugas Bansos">
             <div class="exp-slide-overlay">
-              <span class="exp-slide-tag exp-slide-tag-bri"><i class='bx bx-credit-card'></i> Bank BRI — <span
-                  data-lang-key="exp_slide_bri">Petugas Bansos</span></span>
+              <span class="exp-slide-tag exp-slide-tag-bri"><i class='bx bx-credit-card'></i> <span
+                  data-i18n="exp.slide3">Bank BRI — Petugas Bansos</span></span>
             </div>
           </div>
         </div>
-
       </div>
 
       <button class="exp-slider-btn exp-slider-prev" id="expPrev" aria-label="Previous slide">
@@ -214,24 +209,22 @@
       </div>
     </div>
 
-    <!-- EXPERIENCE CARDS -->
     <div class="exp-cards scroll-bottom">
-
       <!-- Card 1 — PT. Guna Teknologi Nusantara -->
       <div class="exp-card exp-card-featured">
         <div class="exp-card-header">
           <div class="exp-card-icon"><i class='bx bx-code-alt'></i></div>
           <div class="exp-card-title-group">
-            <h3 data-lang-key="exp1_title">Magang Industri — Web Developer</h3>
+            <h3 data-i18n="exp.card1.title">Magang Industri — Web Developer</h3>
             <span class="exp-company">PT. Guna Teknologi Nusantara</span>
           </div>
-          <span class="exp-badge" data-lang-key="badge_intern">Magang</span>
+          <span class="exp-badge" data-i18n="exp.badge.internship">Magang</span>
         </div>
         <div class="exp-card-meta">
           <span><i class='bx bx-map-pin'></i> Denpasar, Bali</span>
           <span><i class='bx bx-briefcase-alt-2'></i> Web Developer</span>
         </div>
-        <p class="exp-card-desc" data-lang-key="exp1_desc">
+        <p class="exp-card-desc" data-i18n="exp.card1.desc">
           Bertanggung jawab dalam pengembangan dan pemeliharaan aplikasi web menggunakan teknologi modern.
           Berperan aktif dalam beberapa proyek penting, dengan fokus pada pengembangan antarmuka pengguna,
           pengelolaan data, dan integrasi sistem.
@@ -240,16 +233,16 @@
           <div class="exp-project-item">
             <div class="exp-project-dot"></div>
             <div>
-              <strong data-lang-key="exp1_proj1_title">Website Manajemen Stok</strong>
-              <p data-lang-key="exp1_proj1_desc">Mengembangkan aplikasi web dinamis untuk manajemen inventaris dengan
+              <strong data-i18n="exp.card1.proj1.title">Website Manajemen Stok</strong>
+              <p data-i18n="exp.card1.proj1.desc">Mengembangkan aplikasi web dinamis untuk manajemen inventaris dengan
                 fitur CRUD, otentikasi pengguna, serta pelaporan stok secara real-time.</p>
             </div>
           </div>
           <div class="exp-project-item">
             <div class="exp-project-dot"></div>
             <div>
-              <strong data-lang-key="exp1_proj2_title">Website Forstaff (Sistem Internal Perusahaan)</strong>
-              <p data-lang-key="exp1_proj2_desc">Berkontribusi dalam pengembangan sistem internal untuk memfasilitasi
+              <strong data-i18n="exp.card1.proj2.title">Website Forstaff (Sistem Internal Perusahaan)</strong>
+              <p data-i18n="exp.card1.proj2.desc">Berkontribusi dalam pengembangan sistem internal untuk memfasilitasi
                 komunikasi antar staf. Fokus pada UI/UX responsif dan integrasi API untuk sinkronisasi data antar
                 departemen.</p>
             </div>
@@ -261,22 +254,22 @@
         </div>
       </div>
 
-      <!-- Card 2 — BKSDM -->
+      <!-- Card 2 — BKSDM Buleleng -->
       <div class="exp-card">
         <div class="exp-card-header">
           <div class="exp-card-icon"><i class='bx bx-building-house'></i></div>
           <div class="exp-card-title-group">
-            <h3 data-lang-key="exp2_title">Magang — Pengembangan Kompetensi Aparatur</h3>
+            <h3 data-i18n="exp.card2.title">Magang — Pengembangan Kompetensi Aparatur</h3>
             <span class="exp-company">BKSDM Kabupaten Buleleng</span>
           </div>
-          <span class="exp-badge exp-badge-green" data-lang-key="badge_intern">Magang</span>
+          <span class="exp-badge exp-badge-green" data-i18n="exp.badge.internship">Magang</span>
         </div>
         <div class="exp-card-meta">
           <span><i class='bx bx-map-pin'></i> Buleleng, Bali</span>
-          <span><i class='bx bx-briefcase-alt-2'></i> <span data-lang-key="exp2_position">Bidang: Kompetensi
+          <span><i class='bx bx-briefcase-alt-2'></i> <span data-i18n="exp.card2.role">Bidang: Kompetensi
               Aparatur</span></span>
         </div>
-        <p class="exp-card-desc" data-lang-key="exp2_desc">
+        <p class="exp-card-desc" data-i18n="exp.card2.desc">
           Berperan dalam pengelolaan data administratif yang mendukung proses pengembangan kompetensi aparatur
           pemerintah daerah. Bekerja langsung dengan dokumen kepegawaian dan data PPPK resmi instansi.
         </p>
@@ -284,8 +277,8 @@
           <div class="exp-project-item">
             <div class="exp-project-dot" style="background:#22c55e;box-shadow:0 0 6px #22c55e;"></div>
             <div>
-              <strong data-lang-key="exp2_proj1_title">Rekapitulasi SK Tugas Belajar PNS</strong>
-              <p data-lang-key="exp2_proj1_desc">Input dan pembaruan data Rekapitulasi Usulan SK Tugas Belajar PNS,
+              <strong data-i18n="exp.card2.proj1.title">Rekapitulasi SK Tugas Belajar PNS</strong>
+              <p data-i18n="exp.card2.proj1.desc">Input dan pembaruan data Rekapitulasi Usulan SK Tugas Belajar PNS,
                 memastikan kelengkapan dokumen dan keakuratan informasi bagi pegawai yang mengajukan izin tugas belajar.
               </p>
             </div>
@@ -293,17 +286,14 @@
           <div class="exp-project-item">
             <div class="exp-project-dot" style="background:#22c55e;box-shadow:0 0 6px #22c55e;"></div>
             <div>
-              <strong data-lang-key="exp2_proj2_title">Pengelolaan Data PPPK 2021 & 2022</strong>
-              <p data-lang-key="exp2_proj2_desc">Mengelola data PPPK (Pegawai Pemerintah dengan Perjanjian Kerja) untuk
+              <strong data-i18n="exp.card2.proj2.title">Pengelolaan Data PPPK 2021 & 2022</strong>
+              <p data-i18n="exp.card2.proj2.desc">Mengelola data PPPK (Pegawai Pemerintah dengan Perjanjian Kerja) untuk
                 tahun 2021 dan 2022, baik yang telah diajukan maupun yang masih dalam proses.</p>
             </div>
           </div>
         </div>
         <div class="exp-tags">
-          <span data-lang-key="tag_data_mgmt">Data Management</span>
-          <span data-lang-key="tag_admin">Administrasi</span>
-          <span>PPPK</span>
-          <span data-lang-key="tag_staffing">Kepegawaian</span>
+          <span>Data Management</span><span>Administrasi</span><span>PPPK</span><span>Kepegawaian</span>
         </div>
       </div>
 
@@ -311,96 +301,90 @@
       <div class="exp-card exp-card-active">
         <div class="exp-card-active-badge">
           <span class="exp-active-pulse"></span>
-          <span data-lang-key="exp_active_label">Sedang Berlangsung</span>
+          <span data-i18n="exp.card3.ongoing">Sedang Berlangsung</span>
         </div>
         <div class="exp-card-header">
           <div class="exp-card-icon" style="background:rgba(0,82,204,0.12);border-color:#0052cc;color:#4d94ff;">
             <i class='bx bx-credit-card'></i>
           </div>
           <div class="exp-card-title-group">
-            <h3 data-lang-key="exp3_title">Petugas Bansos</h3>
+            <h3 data-i18n="exp.card3.title">Petugas Bansos</h3>
             <span class="exp-company">Bank BRI (Bank Rakyat Indonesia)</span>
           </div>
-          <span class="exp-badge exp-badge-blue" data-lang-key="badge_fulltime">Full-time</span>
+          <span class="exp-badge exp-badge-blue" data-i18n="exp.badge.fulltime">Full-time</span>
         </div>
         <div class="exp-card-meta">
           <span><i class='bx bx-map-pin'></i> Bali</span>
-          <span><i class='bx bx-calendar'></i> <span data-lang-key="exp3_period">Oktober 2026 – Sekarang</span></span>
+          <span><i class='bx bx-calendar'></i> <span data-i18n="exp.card3.period">Oktober 2026 – Sekarang</span></span>
         </div>
-        <p class="exp-card-desc" data-lang-key="exp3_desc">
-          Bertugas sebagai Petugas Penyaluran Bantuan Sosial (Bansos) di Bank BRI. Bertanggung jawab dalam
-          memastikan penyaluran bantuan sosial pemerintah tepat sasaran kepada penerima manfaat, melakukan
-          verifikasi data, serta mendampingi proses pencairan dana secara langsung di lapangan.
+        <p class="exp-card-desc" data-i18n="exp.card3.desc">
+          Bertugas sebagai Petugas Penyaluran Bantuan Sosial (Bansos) di Bank BRI. Bertanggung jawab dalam memastikan
+          penyaluran bantuan sosial pemerintah tepat sasaran kepada penerima manfaat, melakukan verifikasi data, serta
+          mendampingi proses pencairan dana secara langsung di lapangan.
         </p>
         <div class="exp-tags">
-          <span>Bansos</span>
-          <span data-lang-key="tag_public_service">Pelayanan Publik</span>
-          <span data-lang-key="tag_data_verify">Verifikasi Data</span>
-          <span data-lang-key="tag_field">Lapangan</span>
-          <span>Bank BRI</span>
+          <span>Bansos</span><span>Pelayanan Publik</span><span>Verifikasi Data</span><span>Lapangan</span><span>Bank
+            BRI</span>
         </div>
       </div>
-
     </div>
   </section>
   <!-- ==================== END WORK EXPERIENCE ==================== -->
 
-  <!-- ==================== SERVICES ==================== -->
   <section id="services" class="services">
     <div class="main-text scroll-scale">
-      <span data-lang-key="services_label">what i will do for you</span>
-      <h2 data-lang-key="services_title">Our Services</h2>
+      <span data-i18n="services.subtitle">what i will do for you</span>
+      <h2 data-i18n="services.title">Our Services</h2>
     </div>
 
     <div class="section-services scroll-bottom">
       <div class="service-box">
         <i class='bx bx-layer service-icon'></i>
-        <h3 data-lang-key="service1_title">Graphic Designer</h3>
-        <p data-lang-key="service1_desc">
+        <h3 data-i18n="services.graphic.title">Graphic Designer</h3>
+        <p data-i18n="services.graphic.desc">
           I have expertise in graphic design. Enjoying the creative process of creating interesting and engaging visual
           design elements for each project.
         </p>
         <div class="btn-box service-btn">
-          <a href="#" class="btn" data-lang-key="btn_read_more">Read More</a>
+          <a href="#" class="btn" data-i18n="services.readMore">Read More</a>
         </div>
       </div>
 
       <div class="service-box">
         <i class='bx bx-code-alt service-icon'></i>
-        <h3 data-lang-key="service2_title">Web Development</h3>
-        <p data-lang-key="service2_desc">
+        <h3 data-i18n="services.web.title">Web Development</h3>
+        <p data-i18n="services.web.desc">
           I have a deep interest in technology, especially in website development. I am always excited to explore and
           create creative solutions through web development.
         </p>
         <div class="btn-box service-btn">
-          <a href="#" class="btn" data-lang-key="btn_read_more">Read More</a>
+          <a href="#" class="btn" data-i18n="services.readMore">Read More</a>
         </div>
       </div>
 
       <div class="service-box">
         <i class='bx bx-mobile service-icon'></i>
-        <h3 data-lang-key="service3_title">Mobile Development</h3>
-        <p data-lang-key="service3_desc">
+        <h3 data-i18n="services.mobile.title">Mobile Development</h3>
+        <p data-i18n="services.mobile.desc">
           I have a deep interest in technology, especially in mobile application development. I am always eager to
           explore and create creative solutions through mobile development.
         </p>
         <div class="btn-box service-btn">
-          <a href="#" class="btn" data-lang-key="btn_read_more">Read More</a>
+          <a href="#" class="btn" data-i18n="services.readMore">Read More</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SKILLS ==================== -->
   <section id="skills" class="skills">
     <div class="main-text scroll-scale">
-      <span data-lang-key="skills_label">technical and profesional</span>
-      <h2 data-lang-key="skills_title">My Skills</h2>
+      <span data-i18n="skills.subtitle">technical and profesional</span>
+      <h2 data-i18n="skills.title">My Skills</h2>
     </div>
 
     <div class="skill-main">
       <div class="skill-left scroll-scale">
-        <h3 data-lang-key="skills_technical">Technical Skills</h3>
+        <h3 data-i18n="skills.technical">Technical Skills</h3>
         <div class="skill-bar">
           <div class="info">
             <p>HTML</p>
@@ -431,89 +415,91 @@
         </div>
       </div>
       <div class="skill-right scroll-scale">
-        <h3 data-lang-key="skills_professional">Professional Skills</h3>
+        <h3 data-i18n="skills.professional">Professional Skills</h3>
         <div class="professional">
           <div class="box">
             <div class="circle" data-dots="90" data-percent="80"></div>
-            <div class="text"><big>90%</big><small data-lang-key="skill_teamwork">Team Work</small></div>
+            <div class="text">
+              <big>90%</big>
+              <small data-i18n="skills.teamwork">Team Work</small>
+            </div>
           </div>
           <div class="box">
             <div class="circle" data-dots="90" data-percent="90"></div>
-            <div class="text"><big>80%</big><small data-lang-key="skill_creativity">Creativity</small></div>
+            <div class="text">
+              <big>80%</big>
+              <small data-i18n="skills.creativity">Creativity</small>
+            </div>
           </div>
           <div class="box">
             <div class="circle" data-dots="90" data-percent="70"></div>
-            <div class="text"><big>70%</big><small data-lang-key="skill_communication">Communication</small></div>
+            <div class="text">
+              <big>70%</big>
+              <small data-i18n="skills.communication">Communication</small>
+            </div>
           </div>
           <div class="box">
             <div class="circle" data-dots="90" data-percent="55"></div>
-            <div class="text"><big>80%</big><small data-lang-key="skill_project_mgmt">Project Management</small></div>
+            <div class="text">
+              <big>80%</big>
+              <small data-i18n="skills.projectMgmt">Project Management</small>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   </section>
 
-  <!-- ==================== QUALIFICATION ==================== -->
+  <!--==================== QUALIFICATION ====================-->
   <section id="educationbg" class="education_section">
     <div class="main-text scroll-scale">
-      <span data-lang-key="journey_label">my personal journey</span>
-      <h2 data-lang-key="journey_title">Personal Journey</h2>
+      <span data-i18n="journey.subtitle">what i will do for you</span>
+      <h2 data-i18n="journey.title">Personal Journey</h2>
     </div>
     <div class="qualification__container container scroll-scale">
       <div class="qualification__tabs">
         <div class="qualification__button button--flex qualification__active" data-target='#education'
           onclick="showContent('education', 'btn-edu', 'btn-exp')" id="btn-edu">
           <i class='bx bxs-graduation'></i>
-          <span data-lang-key="tab_education">Education</span>
+          <span data-i18n="journey.education">Education</span>
         </div>
         <div class="qualification__button button--flex" data-target='#experience'
           onclick="showContent('experience', 'btn-exp', 'btn-edu')" id="btn-exp">
           <i class='bx bx-briefcase'></i>
-          <span data-lang-key="tab_experience">Experience</span>
+          <span data-i18n="journey.experience">Experience</span>
         </div>
       </div>
       <div class="qualification__sections">
         <div class="qualification__content" data-content id="education">
           <div class="qualification__data">
             <div>
-              <h3 class="qualification__title" data-lang-key="edu1_title">Software Engineering Technology</h3>
+              <h3 class="qualification__title" data-i18n="journey.edu1.title">Software Engineering Technology</h3>
               <span class="qualification__subtitle">Universitas Pendidikan Ganesha</span>
               <div class="qualification__calendar"><i class='bx bx-calendar'></i> 2021 - 2025</div>
             </div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
+            <div><span class="qualification__rounder"></span><span class="qualification__line"></span></div>
           </div>
           <div class="qualification__data">
             <div></div>
+            <div><span class="qualification__rounder"></span><span class="qualification__line"></span></div>
             <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
-            <div>
-              <h3 class="qualification__title" data-lang-key="edu2_title">Mathematics and Natural Science</h3>
+              <h3 class="qualification__title" data-i18n="journey.edu2.title">Mathematics and Natural Science</h3>
               <span class="qualification__subtitle">SMA N 1 Rendang</span>
               <div class="qualification__calendar"><i class='bx bx-calendar'></i> 2018 - 2021</div>
             </div>
           </div>
           <div class="qualification__data">
             <div>
-              <h3 class="qualification__title" data-lang-key="edu3_title">Junior High School</h3>
+              <h3 class="qualification__title" data-i18n="journey.edu3.title">Junior High School</h3>
               <span class="qualification__subtitle">SMP N 1 Selat</span>
               <div class="qualification__calendar"><i class='bx bx-calendar'></i> 2015 - 2018</div>
             </div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
+            <div><span class="qualification__rounder"></span><span class="qualification__line"></span></div>
           </div>
           <div class="qualification__data">
             <div></div>
             <div><span class="qualification__rounder"></span></div>
             <div>
-              <h3 class="qualification__title" data-lang-key="edu4_title">Elementary School</h3>
+              <h3 class="qualification__title" data-i18n="journey.edu4.title">Elementary School</h3>
               <span class="qualification__subtitle">SD N 2 Muncan</span>
               <div class="qualification__calendar"><i class='bx bx-calendar'></i> 2009 - 2015</div>
             </div>
@@ -523,42 +509,33 @@
         <div class="qualification__content" data-content id="experience" style="display: none;">
           <div class="qualification__data">
             <div>
-              <h3 class="qualification__title" data-lang-key="xp1_title">Research Internship</h3>
+              <h3 class="qualification__title" data-i18n="journey.exp1.title">Research Internship</h3>
               <span class="qualification__subtitle">KMUTT Geospatial Engineering and Innovation Center (KGEO)</span>
-              <div class="qualification__calendar"><i class='bx bx-calendar'></i> <span data-lang-key="xp1_period">July
-                  - October 2023</span></div>
+              <div class="qualification__calendar"><i class='bx bx-calendar'></i> <span
+                  data-i18n="journey.exp1.period">July - October 2023</span></div>
             </div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
+            <div><span class="qualification__rounder"></span><span class="qualification__line"></span></div>
           </div>
           <div class="qualification__data">
             <div>
-              <h3 class="qualification__title" data-lang-key="xp2_title">Entrepreneurial Student Program</h3>
+              <h3 class="qualification__title" data-i18n="journey.exp2.title">Entrepreneurial Student Program</h3>
               <span class="qualification__subtitle">PMW Undiksha</span>
               <div class="qualification__calendar"><i class='bx bx-calendar'></i> 2023</div>
             </div>
-            <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
+            <div><span class="qualification__rounder"></span><span class="qualification__line"></span></div>
           </div>
           <div class="qualification__data">
             <div></div>
+            <div><span class="qualification__rounder"></span><span class="qualification__line"></span></div>
             <div>
-              <span class="qualification__rounder"></span>
-              <span class="qualification__line"></span>
-            </div>
-            <div>
-              <h3 class="qualification__title" data-lang-key="xp3_title">Student Committee</h3>
+              <h3 class="qualification__title" data-i18n="journey.exp3.title">Student Committee</h3>
               <span class="qualification__subtitle">BEM FTK Undiksha</span>
-              <div class="qualification__calendar"><i class='bx bx-calendar'></i> 2022</div>
+              <div class="qualification__calendar"><i class="uil uil-calendar-alt"></i> 2022</div>
             </div>
           </div>
           <div class="qualification__data">
             <div>
-              <h3 class="qualification__title" data-lang-key="xp4_title">Digital Talent Scholarship</h3>
+              <h3 class="qualification__title" data-i18n="journey.exp4.title">Digital Talent Scholarship</h3>
               <span class="qualification__subtitle">Kominfo</span>
               <div class="qualification__calendar"><i class='bx bx-calendar'></i> 2022</div>
             </div>
@@ -569,30 +546,29 @@
     </div>
   </section>
 
-  <!-- ==================== PORTFOLIO ==================== -->
   <section id="portofolio" class="portofolio">
     <div class="main-text scroll-scale">
-      <span data-lang-key="portfolio_label">What i will do for you</span>
-      <h2 data-lang-key="portfolio_title">Latest Project</h2>
+      <span data-i18n="portfolio.subtitle">What i will do for you</span>
+      <h2 data-i18n="portfolio.title">Latest Project</h2>
     </div>
 
     <div class="container">
       <div class="filter-buttons">
-        <button class="button" data-filter="all" data-lang-key="filter_all">All</button>
-        <button class="button" data-filter=".mobile" data-lang-key="filter_mobile">Mobile App</button>
+        <button class="button" data-filter="all" data-i18n="portfolio.filter.all">All</button>
+        <button class="button" data-filter=".mobile" data-i18n="portfolio.filter.mobile">Mobile App</button>
         <button class="button" data-filter=".wordpress">Wordpress</button>
-        <button class="button" data-filter=".web" data-lang-key="filter_web">Web App</button>
+        <button class="button" data-filter=".web" data-i18n="portfolio.filter.web">Web App</button>
         <button class="button" data-filter=".figma">Figma</button>
-        <button class="button" data-filter=".game" data-lang-key="filter_game">Game</button>
+        <button class="button" data-filter=".game" data-i18n="portfolio.filter.game">Game</button>
       </div>
 
       <div class="portofolio-gallery scroll-bottom">
         <div class="port-box mix mobile">
           <div class="port-image"><img src="image/mobile2.jpg" alt=""></div>
           <div class="port-content">
-            <h3 data-lang-key="port1_title">Music app</h3>
-            <p data-lang-key="port1_desc">I have learned to develop my skills in creating innovative music applications
-              using the Flutter framework.</p>
+            <h3 data-i18n="portfolio.proj1.title">Music App</h3>
+            <p data-i18n="portfolio.proj1.desc">I have learned to develop my skills in creating innovative music
+              applications using the Flutter framework.</p>
             <a href="https://github.com/yanmerta/mymusic"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
@@ -600,9 +576,9 @@
         <div class="port-box mix mobile">
           <div class="port-image"><img src="image/mobile3.png" alt=""></div>
           <div class="port-content">
-            <h3 data-lang-key="port2_title">IKM Logbook Application</h3>
-            <p data-lang-key="port2_desc">I have learned to develop my skills in creating an ICM logbook application
-              using the Flutter framework.</p>
+            <h3 data-i18n="portfolio.proj2.title">IKM Logbook Application</h3>
+            <p data-i18n="portfolio.proj2.desc">I have learned to develop my skills in creating an IKM logbook
+              application using the Flutter framework.</p>
             <a href="https://github.com/yanmerta/logbook"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
@@ -610,9 +586,9 @@
         <div class="port-box mix mobile">
           <div class="port-image"><img src="image/mobile5.png" alt=""></div>
           <div class="port-content">
-            <h3 data-lang-key="port3_title">Travel App</h3>
-            <p data-lang-key="port3_desc">I have learned to develop my skills in creating travel applications using the
-              flutter framework.</p>
+            <h3 data-i18n="portfolio.proj3.title">Travel App</h3>
+            <p data-i18n="portfolio.proj3.desc">I have learned to develop my skills in creating travel applications
+              using the Flutter framework.</p>
             <a href="#"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
@@ -620,9 +596,9 @@
         <div class="port-box mix wordpress">
           <div class="port-image"><img src="image/wordpress.png" alt=""></div>
           <div class="port-content">
-            <h3 data-lang-key="port4_title">Design Web Wordpress</h3>
-            <p data-lang-key="port4_desc">I have learned to develop my skills in creating websites using the wordpress
-              application.</p>
+            <h3 data-i18n="portfolio.proj4.title">Design Web Wordpress</h3>
+            <p data-i18n="portfolio.proj4.desc">I have learned to develop my skills in creating websites using the
+              WordPress application.</p>
             <a href="#"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
@@ -630,9 +606,9 @@
         <div class="port-box mix wordpress">
           <div class="port-image"><img src="image/wordpress2.png" alt=""></div>
           <div class="port-content">
-            <h3 data-lang-key="port5_title">Cooperative Website</h3>
-            <p data-lang-key="port5_desc">I have learned to develop my skills in creating a cooperative website using
-              the wordpress application.</p>
+            <h3 data-i18n="portfolio.proj5.title">Cooperative Website</h3>
+            <p data-i18n="portfolio.proj5.desc">I have learned to develop my skills in creating a cooperative website
+              using WordPress.</p>
             <a href="#"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
@@ -640,9 +616,9 @@
         <div class="port-box mix wordpress">
           <div class="port-image"><img src="image/wordpress3.png" alt=""></div>
           <div class="port-content">
-            <h3 data-lang-key="port6_title">Village Website</h3>
-            <p data-lang-key="port6_desc">I have learned to develop my skills in creating a village website using
-              wordpress application.</p>
+            <h3 data-i18n="portfolio.proj6.title">Village Website</h3>
+            <p data-i18n="portfolio.proj6.desc">I have learned to develop my skills in creating a village website using
+              WordPress.</p>
             <a href="#"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
@@ -650,9 +626,9 @@
         <div class="port-box mix web">
           <div class="port-image"><img src="image/rental motor.png" alt=""></div>
           <div class="port-content">
-            <h3 data-lang-key="port7_title">Motorcycle Rental Website</h3>
-            <p data-lang-key="port7_desc">I have learned to develop my skills in creating a motorcycle rental website
-              using laravel 9.</p>
+            <h3 data-i18n="portfolio.proj7.title">Motorcycle Rental Website</h3>
+            <p data-i18n="portfolio.proj7.desc">I have learned to develop my skills in creating a motorcycle rental
+              website using Laravel 9.</p>
             <a href="#"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
@@ -660,9 +636,9 @@
         <div class="port-box mix game">
           <div class="port-image"><img src="image/game.png" alt=""></div>
           <div class="port-content">
-            <h3 data-lang-key="port8_title">Game Platformer</h3>
-            <p data-lang-key="port8_desc">I have learned to develop my skills in creating platform games using html,
-              javascript and css.</p>
+            <h3 data-i18n="portfolio.proj8.title">Game Platformer</h3>
+            <p data-i18n="portfolio.proj8.desc">I have learned to develop my skills in creating platform games using
+              HTML, JavaScript and CSS.</p>
             <a href="https://github.com/yanmerta/gameplatformer2d"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
@@ -670,8 +646,8 @@
         <div class="port-box mix figma">
           <div class="port-image"><img src="image/figma.png" alt=""></div>
           <div class="port-content">
-            <h3 data-lang-key="port9_title">Application Design</h3>
-            <p data-lang-key="port9_desc">I have learned to develop my skills in designing apps using figma.</p>
+            <h3 data-i18n="portfolio.proj9.title">Application Design</h3>
+            <p data-i18n="portfolio.proj9.desc">I have learned to develop my skills in designing apps using Figma.</p>
             <a href="#"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
@@ -679,9 +655,9 @@
         <div class="port-box mix figma">
           <div class="port-image"><img src="image/figma2.png" alt=""></div>
           <div class="port-content">
-            <h3 data-lang-key="port10_title">Village Website Design</h3>
-            <p data-lang-key="port10_desc">I have learned to develop my skills in designing a village website using
-              figma.</p>
+            <h3 data-i18n="portfolio.proj10.title">Village Website Design</h3>
+            <p data-i18n="portfolio.proj10.desc">I have learned to develop my skills in designing a village website
+              using Figma.</p>
             <a href="#"><i class='bx bx-link-external'></i></a>
           </div>
         </div>
@@ -689,32 +665,32 @@
     </div>
   </section>
 
-  <!-- ==================== CONTACT ==================== -->
   <section id="contact" class="contact">
     <div class="main-text scroll-scale">
-      <span data-lang-key="contact_label">Ask me Question</span>
-      <h2 data-lang-key="contact_title">Contact Me</h2>
+      <span data-i18n="contact.subtitle">Ask me Question</span>
+      <h2 data-i18n="contact.title">Contact Me</h2>
     </div>
 
     <form id="contactForm" class="scroll-bottom">
-      <input type="text" name="name" data-placeholder-key="contact_name" placeholder="Your Name" required>
-      <input type="email" name="email" data-placeholder-key="contact_email" placeholder="Your Email" required>
-      <input type="text" name="address" data-placeholder-key="contact_address" placeholder="Your Address">
-      <input type="text" name="phone" data-placeholder-key="contact_phone" placeholder="Your Phone Number">
-      <textarea name="message" cols="30" rows="10" data-placeholder-key="contact_message"
+      <input type="text" name="name" data-i18n-placeholder="contact.name" placeholder="Your Name" required>
+      <input type="email" name="email" data-i18n-placeholder="contact.email" placeholder="Your Email" required>
+      <input type="text" name="address" data-i18n-placeholder="contact.address" placeholder="Your Address">
+      <input type="text" name="phone" data-i18n-placeholder="contact.phone" placeholder="Your Phone Number">
+      <textarea name="message" cols="30" rows="10" data-i18n-placeholder="contact.message"
         placeholder="Your Message"></textarea>
       <div class="btn-box formBtn">
-        <button type="submit" class="btn" data-lang-key="contact_send_btn">Send Message</button>
+        <button type="submit" class="btn" data-i18n="contact.sendBtn">Send Message</button>
       </div>
     </form>
   </section>
 
   <footer>
-    <p class="scroll-scale">Copyright &copy; 2023 by yanmerta || All Right Reserved</p>
+    <p class="scroll-scale" data-i18n="footer.copy">Copyright &copy; 2023 by yanmerta || All Right Reserved</p>
     <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
   </footer>
 
   <script src="mixitup.min.js"></script>
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 
