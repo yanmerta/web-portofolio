@@ -179,6 +179,7 @@ function updateToggleIcon(isLight) {
 
 function initTheme() {
   const saved = localStorage.getItem("themeMode");
+
   if (saved === "light") {
     applyTheme(true);
   } else if (saved === "dark") {
@@ -232,156 +233,121 @@ qualTabs.forEach((tab) => {
 });
 
 /* =============================================
-   EXPERIENCE PHOTO SLIDER
-   ============================================= */
-(function () {
-  const slides = document.querySelectorAll(".exp-slide");
-  const dots = document.querySelectorAll(".dot");
-  const cards = document.querySelectorAll(".exp-card");
-  const prevBtn = document.getElementById("sliderPrev");
-  const nextBtn = document.getElementById("sliderNext");
-
-  if (!slides.length) return;
-
-  let currentIndex = 0;
-  let autoplayTimer = null;
-
-  function goToSlide(index, direction) {
-    // Remove active from current
-    slides[currentIndex].classList.remove("active");
-    dots[currentIndex].classList.remove("active");
-    cards[currentIndex].classList.remove("exp-card--active");
-
-    // Update index
-    currentIndex = (index + slides.length) % slides.length;
-
-    // Animate in new slide
-    slides[currentIndex].classList.add("active");
-    dots[currentIndex].classList.add("active");
-    cards[currentIndex].classList.add("exp-card--active");
-  }
-
-  function nextSlide() {
-    goToSlide(currentIndex + 1, "next");
-  }
-
-  function prevSlide() {
-    goToSlide(currentIndex - 1, "prev");
-  }
-
-  function startAutoplay() {
-    stopAutoplay();
-    autoplayTimer = setInterval(nextSlide, 3500);
-  }
-
-  function stopAutoplay() {
-    if (autoplayTimer) {
-      clearInterval(autoplayTimer);
-      autoplayTimer = null;
-    }
-  }
-
-  // Button events
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      nextSlide();
-      stopAutoplay();
-      startAutoplay();
-    });
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      prevSlide();
-      stopAutoplay();
-      startAutoplay();
-    });
-  }
-
-  // Dot events
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      const idx = parseInt(dot.getAttribute("data-dot"));
-      goToSlide(idx);
-      stopAutoplay();
-      startAutoplay();
-    });
-  });
-
-  // Card click events — sync slider to card
-  cards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const idx = parseInt(card.getAttribute("data-card"));
-      goToSlide(idx);
-      stopAutoplay();
-      startAutoplay();
-    });
-  });
-
-  // Pause autoplay on hover
-  const sliderContainer = document.querySelector(".exp-slider-container");
-  if (sliderContainer) {
-    sliderContainer.addEventListener("mouseenter", stopAutoplay);
-    sliderContainer.addEventListener("mouseleave", startAutoplay);
-  }
-
-  // Touch swipe support
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  if (sliderContainer) {
-    sliderContainer.addEventListener(
-      "touchstart",
-      (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      },
-      { passive: true },
-    );
-
-    sliderContainer.addEventListener(
-      "touchend",
-      (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 40) {
-          if (diff > 0) nextSlide();
-          else prevSlide();
-          stopAutoplay();
-          startAutoplay();
-        }
-      },
-      { passive: true },
-    );
-  }
-
-  // Init first state — remove any stale classes first
-  slides.forEach((s) => s.classList.remove("active"));
-  dots.forEach((d) => d.classList.remove("active"));
-  cards.forEach((c) => c.classList.remove("exp-card--active"));
-  slides[0].classList.add("active");
-  dots[0].classList.add("active");
-  cards[0].classList.add("exp-card--active");
-
-  startAutoplay();
-})();
-
-/* =============================================
    CONTACT FORM
    ============================================= */
 const scriptURL =
   "https://script.google.com/macros/s/AKfycbwyk6Y58ZWv0z5SfwizH-y_kO3VJv8Anpx0otR5HyBp5v8Zf8GTFtYCrPCQKajr_oY/exec";
 const form = document.getElementById("contactForm");
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  fetch(scriptURL, {
-    method: "POST",
-    body: new FormData(form),
-  })
-    .then((response) => {
-      alert("Pesan berhasil dikirim!");
-      form.reset();
+if (form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    fetch(scriptURL, {
+      method: "POST",
+      body: new FormData(form),
     })
-    .catch((error) => alert("Gagal mengirim pesan"));
-});
+      .then(() => {
+        alert("Pesan berhasil dikirim!");
+        form.reset();
+      })
+      .catch(() => alert("Gagal mengirim pesan"));
+  });
+}
+
+/* =============================================
+   EXPERIENCE PHOTO SLIDER (NEW)
+   ============================================= */
+(function () {
+  const track = document.getElementById("expSliderTrack");
+  const prevBtn = document.getElementById("expPrev");
+  const nextBtn = document.getElementById("expNext");
+  const dots = document.querySelectorAll(".exp-dot");
+
+  if (!track || !prevBtn || !nextBtn) return;
+
+  const slides = track.querySelectorAll(".exp-slide");
+  const total = slides.length;
+  let current = 0;
+  let autoTimer = null;
+
+  function goTo(idx) {
+    // Clamp
+    if (idx < 0) idx = total - 1;
+    if (idx >= total) idx = 0;
+    current = idx;
+
+    track.style.transform = `translateX(-${current * 100}%)`;
+
+    // Update dots
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === current);
+    });
+  }
+
+  function startAuto() {
+    stopAuto();
+    autoTimer = setInterval(() => {
+      goTo(current + 1);
+    }, 4000);
+  }
+
+  function stopAuto() {
+    if (autoTimer) clearInterval(autoTimer);
+  }
+
+  prevBtn.addEventListener("click", () => {
+    goTo(current - 1);
+    stopAuto();
+    startAuto(); // reset timer on manual click
+  });
+
+  nextBtn.addEventListener("click", () => {
+    goTo(current + 1);
+    stopAuto();
+    startAuto();
+  });
+
+  // Dot clicks
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      const idx = parseInt(dot.getAttribute("data-idx"), 10);
+      goTo(idx);
+      stopAuto();
+      startAuto();
+    });
+  });
+
+  // Touch / swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  track.addEventListener(
+    "touchstart",
+    (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    },
+    { passive: true },
+  );
+
+  track.addEventListener(
+    "touchend",
+    (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) {
+          goTo(current + 1);
+        } else {
+          goTo(current - 1);
+        }
+        stopAuto();
+        startAuto();
+      }
+    },
+    { passive: true },
+  );
+
+  // Init
+  goTo(0);
+  startAuto();
+})();
