@@ -1,10 +1,12 @@
 /* =============================================
    i18n.js — Multi-language System
    Supports: English (en) | Indonesian (id)
+   Default: English (en)
    ============================================= */
 
 const translations = {
   en: {
+    /* --- NAV --- */
     "nav.home": "Home",
     "nav.about": "About",
     "nav.experience": "Experience",
@@ -13,33 +15,39 @@ const translations = {
     "nav.journey": "Journey",
     "nav.portfolio": "Portfolio",
     "nav.contact": "Contact",
+
+    /* --- HOME --- */
     "home.greeting": "Hi I'm Yan Merta",
     "home.andIm": "And I'm",
-    "home.role1": "Student",
-    "home.role2": "Gamer",
-    "home.role3": "Web\u00a0Designer",
-    "home.role4": "Frontend\u00a0Developer",
-    "home.role5": "UX/UI\u00a0Developer",
-    "home.bio":
+    "home.word1": "Student",
+    "home.word2": "Gamer",
+    "home.word3": "Web\u00a0Designer",
+    "home.word4": "Frontend\u00a0Developer",
+    "home.word5": "UX/UI\u00a0Developer",
+    "home.desc":
       "I am Wayan Merta, a student at Ganesha University of Education, specializing in the Software Engineering Technology Study Program. My passion lies in technology, with a particular focus on the development of programming languages and web design.",
-    "home.emailLabel": "Email :",
     "home.contactBtn": "Contact Me",
-    "about.intro": "Let Me Introduce Myself",
+
+    /* --- ABOUT --- */
+    "about.subtitle": "Let Me Introduce Myself",
     "about.title": "About Me",
-    "about.subtitle": "A Story Of Good",
-    "about.bio":
+    "about.tagline": "A Story Of Good",
+    "about.desc":
       "I am Wayan Merta, a student of Informatics Engineering Department with focus on Software Engineering Technology Study Program. I have a deep interest in technology, particularly in programming language development and web design. I am pursuing the knowledge and skills necessary to become a competent professional in this field.",
     "about.yearsExp": "Years Of Experience",
-    "about.projects": "Projects Complete",
-    "about.clients": "Happy Clients",
-    "about.cvBtn": "Download CV",
-    "exp.sub": "where I have worked",
+    "about.projectComplete": "Projects Complete",
+    "about.happyClients": "Happy Clients",
+    "about.downloadCV": "Download CV",
+
+    /* --- WORK EXPERIENCE --- */
+    "exp.subtitle": "where I have worked",
     "exp.title": "Work Experience",
-    "exp.slide2Tag": "Internship BKSDM — Buleleng, Bali",
-    "exp.slide3Tag": "Social Aid Officer",
-    "exp.badge.intern": "Internship",
+    "exp.slide2": "Internship BKSDM \u2014 Buleleng, Bali",
+    "exp.slide3": "Bank BRI \u2014 Social Aid Officer",
+    "exp.badge.internship": "Internship",
     "exp.badge.fulltime": "Full-time",
-    "exp.card1.title": "Industry Internship — Web Developer",
+
+    "exp.card1.title": "Industry Internship \u2014 Web Developer",
     "exp.card1.desc":
       "Responsible for the development and maintenance of web applications using modern technologies. Actively involved in several important projects, with a focus on user interface development, data management, and system integration.",
     "exp.card1.proj1.title": "Stock Management Website",
@@ -48,8 +56,9 @@ const translations = {
     "exp.card1.proj2.title": "Forstaff Website (Internal Company System)",
     "exp.card1.proj2.desc":
       "Contributed to the development of an internal system to facilitate inter-staff communication. Focused on responsive UI/UX and API integration for data synchronization between departments.",
-    "exp.card2.title": "Internship — Apparatus Competency Development",
-    "exp.card2.dept": "Field: Apparatus Competency",
+
+    "exp.card2.title": "Internship \u2014 Apparatus Competency Development",
+    "exp.card2.role": "Field: Apparatus Competency",
     "exp.card2.desc":
       "Played a role in managing administrative data supporting the competency development process of local government apparatus. Worked directly with personnel documents and official PPPK data.",
     "exp.card2.proj1.title": "Civil Servant Study Leave SK Recapitulation",
@@ -58,17 +67,32 @@ const translations = {
     "exp.card2.proj2.title": "PPPK 2021 & 2022 Data Management",
     "exp.card2.proj2.desc":
       "Managing PPPK (Government Employees with Work Agreements) data for 2021 and 2022, both those already submitted and those still in process.",
+
     "exp.card3.ongoing": "Ongoing",
     "exp.card3.title": "Social Aid Officer",
-    "exp.card3.period": "October 2026 – Present",
+    "exp.card3.period": "October 2026 \u2013 Present",
     "exp.card3.desc":
       "Serving as a Social Assistance (Bansos) Distribution Officer at Bank BRI. Responsible for ensuring government social assistance is distributed accurately to beneficiaries, verifying data, and assisting the fund disbursement process directly in the field.",
+
+    /* exp tags */
+    "exp.tag.laravel": "Laravel",
+    "exp.tag.javascript": "JavaScript",
+    "exp.tag.crud": "CRUD",
+    "exp.tag.restapi": "REST API",
+    "exp.tag.uiux": "UI/UX",
+    "exp.tag.realtime": "Real-time",
+    "exp.tag.dataManagement": "Data Management",
     "exp.tag.admin": "Administration",
+    "exp.tag.pppk": "PPPK",
     "exp.tag.personnel": "Personnel",
+    "exp.tag.bansos": "Bansos",
     "exp.tag.publicService": "Public Service",
     "exp.tag.dataVerif": "Data Verification",
     "exp.tag.field": "Field Work",
-    "services.sub": "what I will do for you",
+    "exp.tag.bankBRI": "Bank BRI",
+
+    /* --- SERVICES --- */
+    "services.subtitle": "what I will do for you",
     "services.title": "Our Services",
     "services.readMore": "Read More",
     "services.graphic.title": "Graphic Designer",
@@ -80,7 +104,9 @@ const translations = {
     "services.mobile.title": "Mobile Development",
     "services.mobile.desc":
       "I have a deep interest in technology, especially in mobile application development. I am always eager to explore and create creative solutions through mobile development.",
-    "skills.sub": "technical and professional",
+
+    /* --- SKILLS --- */
+    "skills.subtitle": "technical and professional",
     "skills.title": "My Skills",
     "skills.technical": "Technical Skills",
     "skills.professional": "Professional Skills",
@@ -88,7 +114,9 @@ const translations = {
     "skills.creativity": "Creativity",
     "skills.communication": "Communication",
     "skills.projectMgmt": "Project Management",
-    "journey.sub": "my personal history",
+
+    /* --- JOURNEY --- */
+    "journey.subtitle": "my personal history",
     "journey.title": "Personal Journey",
     "journey.education": "Education",
     "journey.experience": "Experience",
@@ -97,46 +125,51 @@ const translations = {
     "journey.edu3.title": "Junior High School",
     "journey.edu4.title": "Elementary School",
     "journey.exp1.title": "Research Internship",
+    "journey.exp1.period": "July \u2013 October 2023",
     "journey.exp2.title": "Entrepreneurial Student Program",
     "journey.exp3.title": "Student Committee",
     "journey.exp4.title": "Digital Talent Scholarship",
-    "portfolio.sub": "what I will do for you",
+
+    /* --- PORTFOLIO --- */
+    "portfolio.subtitle": "what I will do for you",
     "portfolio.title": "Latest Project",
     "portfolio.filter.all": "All",
     "portfolio.filter.mobile": "Mobile App",
     "portfolio.filter.web": "Web App",
     "portfolio.filter.game": "Game",
-    "portfolio.p1.title": "Music App",
-    "portfolio.p1.desc":
+    "portfolio.proj1.title": "Music App",
+    "portfolio.proj1.desc":
       "I have learned to develop my skills in creating innovative music applications using the Flutter framework.",
-    "portfolio.p2.title": "IKM Logbook Application",
-    "portfolio.p2.desc":
-      "I have learned to develop my skills in creating an ICM logbook application using the Flutter framework.",
-    "portfolio.p3.title": "Travel App",
-    "portfolio.p3.desc":
+    "portfolio.proj2.title": "IKM Logbook Application",
+    "portfolio.proj2.desc":
+      "I have learned to develop my skills in creating an IKM logbook application using the Flutter framework.",
+    "portfolio.proj3.title": "Travel App",
+    "portfolio.proj3.desc":
       "I have learned to develop my skills in creating travel applications using the Flutter framework.",
-    "portfolio.p4.title": "Design Web WordPress",
-    "portfolio.p4.desc":
+    "portfolio.proj4.title": "Design Web WordPress",
+    "portfolio.proj4.desc":
       "I have learned to develop my skills in creating websites using the WordPress application.",
-    "portfolio.p5.title": "Cooperative Website",
-    "portfolio.p5.desc":
-      "I have learned to develop my skills in creating a cooperative website using the WordPress application.",
-    "portfolio.p6.title": "Village Website",
-    "portfolio.p6.desc":
-      "I have learned to develop my skills in creating a village website using the WordPress application.",
-    "portfolio.p7.title": "Motorcycle Rental Website",
-    "portfolio.p7.desc":
+    "portfolio.proj5.title": "Cooperative Website",
+    "portfolio.proj5.desc":
+      "I have learned to develop my skills in creating a cooperative website using WordPress.",
+    "portfolio.proj6.title": "Village Website",
+    "portfolio.proj6.desc":
+      "I have learned to develop my skills in creating a village website using WordPress.",
+    "portfolio.proj7.title": "Motorcycle Rental Website",
+    "portfolio.proj7.desc":
       "I have learned to develop my skills in creating a motorcycle rental website using Laravel 9.",
-    "portfolio.p8.title": "Game Platformer",
-    "portfolio.p8.desc":
+    "portfolio.proj8.title": "Game Platformer",
+    "portfolio.proj8.desc":
       "I have learned to develop my skills in creating platform games using HTML, JavaScript and CSS.",
-    "portfolio.p9.title": "Application Design",
-    "portfolio.p9.desc":
+    "portfolio.proj9.title": "Application Design",
+    "portfolio.proj9.desc":
       "I have learned to develop my skills in designing apps using Figma.",
-    "portfolio.p10.title": "Village Website Design",
-    "portfolio.p10.desc":
+    "portfolio.proj10.title": "Village Website Design",
+    "portfolio.proj10.desc":
       "I have learned to develop my skills in designing a village website using Figma.",
-    "contact.sub": "Ask me a Question",
+
+    /* --- CONTACT --- */
+    "contact.subtitle": "Ask me a Question",
     "contact.title": "Contact Me",
     "contact.name": "Your Name",
     "contact.email": "Your Email",
@@ -146,9 +179,13 @@ const translations = {
     "contact.sendBtn": "Send Message",
     "contact.successMsg": "Message sent successfully!",
     "contact.failMsg": "Failed to send message",
+
+    /* --- FOOTER --- */
     "footer.copy": "Copyright \u00a9 2023 by yanmerta || All Rights Reserved",
   },
+
   id: {
+    /* --- NAV --- */
     "nav.home": "Beranda",
     "nav.about": "Tentang",
     "nav.experience": "Pengalaman",
@@ -157,33 +194,39 @@ const translations = {
     "nav.journey": "Perjalanan",
     "nav.portfolio": "Portofolio",
     "nav.contact": "Kontak",
+
+    /* --- HOME --- */
     "home.greeting": "Halo, Saya Yan Merta",
     "home.andIm": "Dan Saya",
-    "home.role1": "Mahasiswa",
-    "home.role2": "Gamer",
-    "home.role3": "Web\u00a0Designer",
-    "home.role4": "Frontend\u00a0Developer",
-    "home.role5": "UX/UI\u00a0Developer",
-    "home.bio":
+    "home.word1": "Mahasiswa",
+    "home.word2": "Gamer",
+    "home.word3": "Web\u00a0Designer",
+    "home.word4": "Frontend\u00a0Developer",
+    "home.word5": "UX/UI\u00a0Developer",
+    "home.desc":
       "Saya Wayan Merta, mahasiswa Universitas Pendidikan Ganesha, Program Studi Teknologi Rekayasa Perangkat Lunak. Saya memiliki semangat besar di bidang teknologi, khususnya dalam pengembangan bahasa pemrograman dan desain web.",
-    "home.emailLabel": "Email :",
     "home.contactBtn": "Hubungi Saya",
-    "about.intro": "Izinkan Saya Memperkenalkan Diri",
+
+    /* --- ABOUT --- */
+    "about.subtitle": "Izinkan Saya Memperkenalkan Diri",
     "about.title": "Tentang Saya",
-    "about.subtitle": "Kisah Yang Baik",
-    "about.bio":
+    "about.tagline": "Kisah Yang Baik",
+    "about.desc":
       "Saya Wayan Merta, mahasiswa Jurusan Teknik Informatika dengan fokus pada Program Studi Teknologi Rekayasa Perangkat Lunak. Saya memiliki minat mendalam pada teknologi, khususnya pengembangan bahasa pemrograman dan desain web. Saya terus mengembangkan pengetahuan dan keterampilan untuk menjadi profesional yang kompeten di bidang ini.",
     "about.yearsExp": "Tahun Pengalaman",
-    "about.projects": "Proyek Selesai",
-    "about.clients": "Klien Puas",
-    "about.cvBtn": "Unduh CV",
-    "exp.sub": "tempat saya pernah bekerja",
+    "about.projectComplete": "Proyek Selesai",
+    "about.happyClients": "Klien Puas",
+    "about.downloadCV": "Unduh CV",
+
+    /* --- WORK EXPERIENCE --- */
+    "exp.subtitle": "tempat saya pernah bekerja",
     "exp.title": "Pengalaman Kerja",
-    "exp.slide2Tag": "Magang BKSDM — Buleleng, Bali",
-    "exp.slide3Tag": "Petugas Bansos",
-    "exp.badge.intern": "Magang",
+    "exp.slide2": "Magang BKSDM \u2014 Buleleng, Bali",
+    "exp.slide3": "Bank BRI \u2014 Petugas Bansos",
+    "exp.badge.internship": "Magang",
     "exp.badge.fulltime": "Penuh Waktu",
-    "exp.card1.title": "Magang Industri — Web Developer",
+
+    "exp.card1.title": "Magang Industri \u2014 Web Developer",
     "exp.card1.desc":
       "Bertanggung jawab dalam pengembangan dan pemeliharaan aplikasi web menggunakan teknologi modern. Berperan aktif dalam beberapa proyek penting, dengan fokus pada pengembangan antarmuka pengguna, pengelolaan data, dan integrasi sistem.",
     "exp.card1.proj1.title": "Website Manajemen Stok",
@@ -192,8 +235,9 @@ const translations = {
     "exp.card1.proj2.title": "Website Forstaff (Sistem Internal Perusahaan)",
     "exp.card1.proj2.desc":
       "Berkontribusi dalam pengembangan sistem internal untuk memfasilitasi komunikasi antar staf. Fokus pada UI/UX responsif dan integrasi API untuk sinkronisasi data antar departemen.",
-    "exp.card2.title": "Magang — Pengembangan Kompetensi Aparatur",
-    "exp.card2.dept": "Bidang: Kompetensi Aparatur",
+
+    "exp.card2.title": "Magang \u2014 Pengembangan Kompetensi Aparatur",
+    "exp.card2.role": "Bidang: Kompetensi Aparatur",
     "exp.card2.desc":
       "Berperan dalam pengelolaan data administratif yang mendukung proses pengembangan kompetensi aparatur pemerintah daerah. Bekerja langsung dengan dokumen kepegawaian dan data PPPK resmi instansi.",
     "exp.card2.proj1.title": "Rekapitulasi SK Tugas Belajar PNS",
@@ -202,17 +246,32 @@ const translations = {
     "exp.card2.proj2.title": "Pengelolaan Data PPPK 2021 & 2022",
     "exp.card2.proj2.desc":
       "Mengelola data PPPK (Pegawai Pemerintah dengan Perjanjian Kerja) untuk tahun 2021 dan 2022, baik yang telah diajukan maupun yang masih dalam proses.",
+
     "exp.card3.ongoing": "Sedang Berlangsung",
     "exp.card3.title": "Petugas Bansos",
-    "exp.card3.period": "Oktober 2026 – Sekarang",
+    "exp.card3.period": "Oktober 2026 \u2013 Sekarang",
     "exp.card3.desc":
       "Bertugas sebagai Petugas Penyaluran Bantuan Sosial (Bansos) di Bank BRI. Bertanggung jawab dalam memastikan penyaluran bantuan sosial pemerintah tepat sasaran kepada penerima manfaat, melakukan verifikasi data, serta mendampingi proses pencairan dana secara langsung di lapangan.",
+
+    /* exp tags */
+    "exp.tag.laravel": "Laravel",
+    "exp.tag.javascript": "JavaScript",
+    "exp.tag.crud": "CRUD",
+    "exp.tag.restapi": "REST API",
+    "exp.tag.uiux": "UI/UX",
+    "exp.tag.realtime": "Real-time",
+    "exp.tag.dataManagement": "Manajemen Data",
     "exp.tag.admin": "Administrasi",
+    "exp.tag.pppk": "PPPK",
     "exp.tag.personnel": "Kepegawaian",
+    "exp.tag.bansos": "Bansos",
     "exp.tag.publicService": "Pelayanan Publik",
     "exp.tag.dataVerif": "Verifikasi Data",
     "exp.tag.field": "Lapangan",
-    "services.sub": "apa yang akan saya lakukan untuk Anda",
+    "exp.tag.bankBRI": "Bank BRI",
+
+    /* --- SERVICES --- */
+    "services.subtitle": "apa yang akan saya lakukan untuk Anda",
     "services.title": "Layanan Kami",
     "services.readMore": "Selengkapnya",
     "services.graphic.title": "Desainer Grafis",
@@ -224,7 +283,9 @@ const translations = {
     "services.mobile.title": "Pengembangan Mobile",
     "services.mobile.desc":
       "Saya memiliki minat mendalam pada teknologi, khususnya pengembangan aplikasi mobile. Saya selalu bersemangat mengeksplorasi dan menciptakan solusi kreatif melalui pengembangan mobile.",
-    "skills.sub": "teknis dan profesional",
+
+    /* --- SKILLS --- */
+    "skills.subtitle": "teknis dan profesional",
     "skills.title": "Keahlian Saya",
     "skills.technical": "Keahlian Teknis",
     "skills.professional": "Keahlian Profesional",
@@ -232,7 +293,9 @@ const translations = {
     "skills.creativity": "Kreativitas",
     "skills.communication": "Komunikasi",
     "skills.projectMgmt": "Manajemen Proyek",
-    "journey.sub": "perjalanan hidup saya",
+
+    /* --- JOURNEY --- */
+    "journey.subtitle": "perjalanan hidup saya",
     "journey.title": "Perjalanan Pribadi",
     "journey.education": "Pendidikan",
     "journey.experience": "Pengalaman",
@@ -241,46 +304,51 @@ const translations = {
     "journey.edu3.title": "Sekolah Menengah Pertama",
     "journey.edu4.title": "Sekolah Dasar",
     "journey.exp1.title": "Magang Riset",
+    "journey.exp1.period": "Juli \u2013 Oktober 2023",
     "journey.exp2.title": "Program Mahasiswa Wirausaha",
     "journey.exp3.title": "Komite Mahasiswa",
     "journey.exp4.title": "Beasiswa Talenta Digital",
-    "portfolio.sub": "apa yang akan saya lakukan untuk Anda",
+
+    /* --- PORTFOLIO --- */
+    "portfolio.subtitle": "apa yang akan saya lakukan untuk Anda",
     "portfolio.title": "Proyek Terbaru",
     "portfolio.filter.all": "Semua",
     "portfolio.filter.mobile": "Aplikasi Mobile",
     "portfolio.filter.web": "Aplikasi Web",
     "portfolio.filter.game": "Game",
-    "portfolio.p1.title": "Aplikasi Musik",
-    "portfolio.p1.desc":
+    "portfolio.proj1.title": "Aplikasi Musik",
+    "portfolio.proj1.desc":
       "Saya telah belajar mengembangkan keterampilan dalam membuat aplikasi musik inovatif menggunakan framework Flutter.",
-    "portfolio.p2.title": "Aplikasi Logbook IKM",
-    "portfolio.p2.desc":
+    "portfolio.proj2.title": "Aplikasi Logbook IKM",
+    "portfolio.proj2.desc":
       "Saya telah belajar mengembangkan keterampilan dalam membuat aplikasi logbook IKM menggunakan framework Flutter.",
-    "portfolio.p3.title": "Aplikasi Travel",
-    "portfolio.p3.desc":
+    "portfolio.proj3.title": "Aplikasi Travel",
+    "portfolio.proj3.desc":
       "Saya telah belajar mengembangkan keterampilan dalam membuat aplikasi travel menggunakan framework Flutter.",
-    "portfolio.p4.title": "Desain Web WordPress",
-    "portfolio.p4.desc":
+    "portfolio.proj4.title": "Desain Web WordPress",
+    "portfolio.proj4.desc":
       "Saya telah belajar mengembangkan keterampilan dalam membuat website menggunakan aplikasi WordPress.",
-    "portfolio.p5.title": "Website Koperasi",
-    "portfolio.p5.desc":
-      "Saya telah belajar mengembangkan keterampilan dalam membuat website koperasi menggunakan aplikasi WordPress.",
-    "portfolio.p6.title": "Website Desa",
-    "portfolio.p6.desc":
-      "Saya telah belajar mengembangkan keterampilan dalam membuat website desa menggunakan aplikasi WordPress.",
-    "portfolio.p7.title": "Website Rental Motor",
-    "portfolio.p7.desc":
+    "portfolio.proj5.title": "Website Koperasi",
+    "portfolio.proj5.desc":
+      "Saya telah belajar mengembangkan keterampilan dalam membuat website koperasi menggunakan WordPress.",
+    "portfolio.proj6.title": "Website Desa",
+    "portfolio.proj6.desc":
+      "Saya telah belajar mengembangkan keterampilan dalam membuat website desa menggunakan WordPress.",
+    "portfolio.proj7.title": "Website Rental Motor",
+    "portfolio.proj7.desc":
       "Saya telah belajar mengembangkan keterampilan dalam membuat website rental motor menggunakan Laravel 9.",
-    "portfolio.p8.title": "Game Platformer",
-    "portfolio.p8.desc":
+    "portfolio.proj8.title": "Game Platformer",
+    "portfolio.proj8.desc":
       "Saya telah belajar mengembangkan keterampilan dalam membuat game platform menggunakan HTML, JavaScript dan CSS.",
-    "portfolio.p9.title": "Desain Aplikasi",
-    "portfolio.p9.desc":
+    "portfolio.proj9.title": "Desain Aplikasi",
+    "portfolio.proj9.desc":
       "Saya telah belajar mengembangkan keterampilan dalam mendesain aplikasi menggunakan Figma.",
-    "portfolio.p10.title": "Desain Website Desa",
-    "portfolio.p10.desc":
+    "portfolio.proj10.title": "Desain Website Desa",
+    "portfolio.proj10.desc":
       "Saya telah belajar mengembangkan keterampilan dalam mendesain website desa menggunakan Figma.",
-    "contact.sub": "Tanyakan kepada Saya",
+
+    /* --- CONTACT --- */
+    "contact.subtitle": "Tanyakan kepada Saya",
     "contact.title": "Hubungi Saya",
     "contact.name": "Nama Anda",
     "contact.email": "Email Anda",
@@ -290,6 +358,8 @@ const translations = {
     "contact.sendBtn": "Kirim Pesan",
     "contact.successMsg": "Pesan berhasil dikirim!",
     "contact.failMsg": "Gagal mengirim pesan",
+
+    /* --- FOOTER --- */
     "footer.copy":
       "Hak Cipta \u00a9 2023 oleh yanmerta || Semua Hak Dilindungi",
   },
@@ -297,49 +367,67 @@ const translations = {
 
 (function () {
   const STORAGE_KEY = "siteLang";
-  const LANG_VERSION = "v2"; // bump this to reset saved lang preference
+  const LANG_VERSION = "v3"; // bumped to reset to new default (en)
   const savedVersion = localStorage.getItem("siteLangVersion");
   if (savedVersion !== LANG_VERSION) {
     localStorage.removeItem(STORAGE_KEY);
     localStorage.setItem("siteLangVersion", LANG_VERSION);
   }
+
+  // Default language = English
   let currentLang = localStorage.getItem(STORAGE_KEY) || "en";
 
+  /* ---- translate all data-i18n elements ---- */
   function applyTranslations(lang) {
     const t = translations[lang] || translations["en"];
+
+    // Standard text elements
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       const key = el.getAttribute("data-i18n");
-      if (t[key] !== undefined) {
-        el.textContent = t[key];
-      }
+      if (t[key] !== undefined) el.textContent = t[key];
     });
+
+    // Placeholder inputs/textareas
     document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
       const key = el.getAttribute("data-i18n-placeholder");
-      if (t[key] !== undefined) {
-        el.setAttribute("placeholder", t[key]);
-      }
+      if (t[key] !== undefined) el.setAttribute("placeholder", t[key]);
     });
+
+    // Animated word elements — update raw text then reinit animation
+    document.querySelectorAll("[data-i18n-word]").forEach(function (el) {
+      const key = el.getAttribute("data-i18n-word");
+      if (t[key] !== undefined) el.dataset.rawText = t[key];
+    });
+
     document.documentElement.lang = lang;
+
+    // Reinit word animation after translation
+    if (typeof window.reinitWordAnimation === "function") {
+      window.reinitWordAnimation();
+    }
   }
 
+  /* ---- update the UI of the language switcher button ---- */
   function updateSwitcherUI(lang) {
     const flagEl = document.getElementById("langFlag");
     const labelEl = document.getElementById("langLabel");
     const optEn = document.getElementById("optEn");
     const optId = document.getElementById("optId");
+
     if (lang === "id") {
-      if (flagEl) flagEl.textContent = "🇮🇩";
+      if (flagEl) flagEl.textContent = "\uD83C\uDDEE\uD83C\uDDE9"; // 🇮🇩
       if (labelEl) labelEl.textContent = "ID";
       if (optEn) optEn.classList.remove("active");
       if (optId) optId.classList.add("active");
     } else {
-      if (flagEl) flagEl.textContent = "🇬🇧";
+      if (flagEl) flagEl.textContent = "\uD83C\uDDEC\uD83C\uDDE7"; // 🇬🇧
       if (labelEl) labelEl.textContent = "EN";
       if (optEn) optEn.classList.add("active");
       if (optId) optId.classList.remove("active");
     }
   }
 
+  /* ---- switch language ---- */
   function setLang(lang) {
     currentLang = lang;
     localStorage.setItem(STORAGE_KEY, lang);
@@ -347,6 +435,7 @@ const translations = {
     updateSwitcherUI(lang);
   }
 
+  /* ---- wire up the dropdown toggle ---- */
   function initSwitcher() {
     const btn = document.getElementById("langToggleBtn");
     const dropdown = document.getElementById("langDropdown");
@@ -380,6 +469,7 @@ const translations = {
     });
   }
 
+  /* ---- public API ---- */
   const i18nAPI = {
     t: function (key) {
       return (translations[currentLang] || translations["en"])[key] || key;
@@ -392,6 +482,7 @@ const translations = {
   window.i18n = i18nAPI;
   window.I18n = i18nAPI; // alias for script.js compatibility
 
+  /* ---- boot ---- */
   function init() {
     initSwitcher();
     applyTranslations(currentLang);
