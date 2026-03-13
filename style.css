@@ -309,6 +309,18 @@ section {
 
 /* =============================================
    CHANGE-TEXT — Word Animation (FIXED)
+   
+   Root cause: the original CSS set
+   `.change-text h3 { display: inline-flex }`
+   but the second h3 (word wrapper) had NO
+   explicit height. Since all .word children
+   use position:absolute, they are taken out
+   of flow — the wrapper collapsed to 0px
+   height and all words stacked at the same
+   position, appearing as garbled text.
+   
+   Fix: flex row for the two h3s, explicit
+   height on the word-wrapper h3.
    ============================================= */
 .change-text {
   display: flex;
@@ -319,7 +331,6 @@ section {
   color: var(--text-color);
   flex-wrap: nowrap;
   margin-bottom: 0.8rem;
-  line-height: 1;
 }
 
 /* "And I'm" — first h3, static */
@@ -328,16 +339,14 @@ section {
   margin: 0;
   flex-shrink: 0;
   color: var(--text-color);
-  white-space: nowrap;
 }
 
 /* Animated words wrapper — second h3 */
 .change-text h3:last-child {
   position: relative;
   display: inline-block;
-  height: 2.5rem;
-  line-height: 2.5rem;
-  min-width: 320px;
+  height: 2.2rem; /* explicit height keeps container from collapsing */
+  min-width: 300px; /* enough room for longest word */
   margin: 0;
   overflow: visible;
   color: var(--hover-color);
@@ -349,8 +358,6 @@ section {
   left: 0;
   top: 0;
   display: inline-flex;
-  align-items: center;
-  height: 100%;
   white-space: nowrap;
   opacity: 0;
   perspective: 300px;
@@ -1824,9 +1831,8 @@ footer a i {
     flex-wrap: wrap;
   }
   .change-text h3:last-child {
-    min-width: 240px;
-    height: 2.2rem;
-    line-height: 2.2rem;
+    min-width: 220px;
+    height: 2rem;
   }
 }
 
@@ -1848,9 +1854,8 @@ footer a i {
     flex-wrap: wrap;
   }
   .change-text h3:last-child {
-    min-width: 200px;
-    height: 2rem;
-    line-height: 2rem;
+    min-width: 180px;
+    height: 1.8rem;
   }
   footer p {
     font-size: 0.6rem;
