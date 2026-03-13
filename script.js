@@ -1,77 +1,95 @@
 /* =============================================
-   WORD ANIMATION — with i18n support
+   WORD ANIMATION — Rewritten, bulletproof
+   Pakai opacity + translateY, bukan rotateX per-huruf
    ============================================= */
 let wordElements = [];
 let currentWordIndex = 0;
 let wordInterval = null;
 
-function buildLetters(wordEl) {
-  // Use raw translated text if available, otherwise existing text
-  const rawText =
-    wordEl.dataset.rawText || wordEl.textContent || wordEl.innerText;
-  const letters = rawText.split("");
-  wordEl.textContent = "";
-  letters.forEach((letter) => {
-    let span = document.createElement("span");
-    // Preserve &nbsp; space
-    span.innerHTML = letter === " " ? "&nbsp;" : letter;
-    span.className = "letter";
-    wordEl.append(span);
-  });
-}
-
 function initWordAnimation() {
+  if (wordInterval) {
+    clearInterval(wordInterval);
+    wordInterval = null;
+  }
+
   wordElements = Array.from(document.querySelectorAll(".word"));
   currentWordIndex = 0;
 
-  wordElements.forEach((word) => buildLetters(word));
+  if (wordElements.length === 0) return;
 
-  if (wordElements.length > 0) {
-    wordElements[0].style.opacity = "1";
-    changeText();
-    wordInterval = setInterval(changeText, 3000);
-  }
+  // Reset semua kata: sembunyikan di atas (akan turun masuk)
+  wordElements.forEach((word) => {
+    word.style.transition = "none";
+    word.style.opacity = "0";
+    word.style.transform = "translateY(-100%)";
+  });
+
+  // Double rAF agar browser flush dulu sebelum animasi
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      if (wordElements[0]) {
+        wordElements[0].style.transition =
+          "opacity 0.9s ease, transform 0.9s ease";
+        wordElements[0].style.opacity = "1";
+        wordElements[0].style.transform = "translateY(0)";
+      }
+      wordInterval = setInterval(changeWord, 3000);
+    });
+  });
 }
 
-function changeText() {
+function changeWord() {
   if (!wordElements.length) return;
-  const maxIdx = wordElements.length - 1;
-  const currentWord = wordElements[currentWordIndex];
-  const nextWord =
-    currentWordIndex === maxIdx
-      ? wordElements[0]
-      : wordElements[currentWordIndex + 1];
 
-  Array.from(currentWord.children).forEach((letter, i) => {
-    setTimeout(() => {
-      letter.className = "letter out";
-    }, i * 80);
-  });
+  const current = wordElements[currentWordIndex];
+  const nextIndex = (currentWordIndex + 1) % wordElements.length;
+  const next = wordElements[nextIndex];
 
-  nextWord.style.opacity = "1";
-  Array.from(nextWord.children).forEach((letter, i) => {
-    letter.className = "letter behind";
-    setTimeout(
-      () => {
-        letter.className = "letter in";
-      },
-      340 + i * 80,
-    );
-  });
+  // Animasi keluar ke BAWAH (turun)
+  current.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+  current.style.opacity = "0";
+  current.style.transform = "translateY(100%)";
 
-  currentWordIndex = currentWordIndex === maxIdx ? 0 : currentWordIndex + 1;
+  // Posisikan kata berikutnya di atas (tanpa transisi)
+  next.style.transition = "none";
+  next.style.opacity = "0";
+  next.style.transform = "translateY(-100%)";
+
+  // Masuk dari atas turun ke tengah setelah animasi keluar selesai
+  setTimeout(() => {
+    next.style.transition = "opacity 0.9s ease, transform 0.9s ease";
+    next.style.opacity = "1";
+    next.style.transform = "translateY(0)";
+  }, 850);
+
+  currentWordIndex = nextIndex;
 }
 
-// Called by i18n.js after language switch
+// Dipanggil oleh i18n.js setelah ganti bahasa
 window.reinitWordAnimation = function () {
-  if (wordInterval) clearInterval(wordInterval);
-  // Rebuild raw text from data-i18n-word translations
+  if (wordInterval) {
+    clearInterval(wordInterval);
+    wordInterval = null;
+  }
+
+  // Update teks dari terjemahan
   document.querySelectorAll("[data-i18n-word]").forEach((wordEl) => {
     const key = wordEl.getAttribute("data-i18n-word");
     const val = window.I18n ? window.I18n.t(key) : null;
-    if (val) wordEl.dataset.rawText = val;
+    if (val) {
+      wordEl.dataset.rawText = val;
+      wordEl.textContent = val;
+    }
   });
-  initWordAnimation();
+
+  // Paksa sembunyikan semua (di atas, siap turun)
+  document.querySelectorAll(".word").forEach((word) => {
+    word.style.transition = "none";
+    word.style.opacity = "0";
+    word.style.transform = "translateY(-100%)";
+  });
+
+  setTimeout(() => initWordAnimation(), 60);
 };
 
 /* =============================================
@@ -84,12 +102,10 @@ circles.forEach((elem) => {
   var percent = Math.floor((dots * marked) / 100);
   var rotate = 360 / dots;
   var points = "";
-
   for (let i = 0; i < dots; i++) {
     points += `<div class="points" style="--i:${i}; --rot:${rotate}deg"></div>`;
   }
   elem.innerHTML = points;
-
   const pointsMarked = elem.querySelectorAll(".points");
   for (let i = 0; i < percent; i++) {
     pointsMarked[i].classList.add("marked");
@@ -141,19 +157,15 @@ if (menuIcon && navlist) {
   menuIcon.addEventListener("click", () => {
     menuIcon.classList.toggle("bx-x");
     navlist.classList.toggle("open");
-    // Prevent body scroll when menu is open
     document.body.style.overflow = navlist.classList.contains("open")
       ? "hidden"
       : "";
   });
-
   window.addEventListener("scroll", () => {
     menuIcon.classList.remove("bx-x");
     navlist.classList.remove("open");
     document.body.style.overflow = "";
   });
-
-  // Close menu on nav link click
   navlist.querySelectorAll("a[href]").forEach((link) => {
     link.addEventListener("click", () => {
       menuIcon.classList.remove("bx-x");
@@ -178,7 +190,6 @@ const observer = new IntersectionObserver(
   },
   { threshold: 0.1 },
 );
-
 document
   .querySelectorAll(".scroll-scale, .scroll-bottom, .scroll-top")
   .forEach((el) => observer.observe(el));
@@ -193,49 +204,34 @@ function isDayTime() {
   const hour = new Date().getHours();
   return hour >= 6 && hour < 18;
 }
-
 function applyTheme(isLight) {
-  if (isLight) {
-    body.classList.add("light-mode");
-  } else {
-    body.classList.remove("light-mode");
-  }
+  isLight
+    ? body.classList.add("light-mode")
+    : body.classList.remove("light-mode");
   updateToggleIcon(isLight);
 }
-
 function updateToggleIcon(isLight) {
   if (!toggleModeButton) return;
   toggleModeButton.innerHTML = isLight
     ? '<i class="bx bx-moon"></i>'
     : '<i class="bx bx-sun"></i>';
 }
-
 function initTheme() {
   const saved = localStorage.getItem("themeMode");
-  if (saved === "light") {
-    applyTheme(true);
-  } else if (saved === "dark") {
-    applyTheme(false);
-  } else {
-    applyTheme(isDayTime());
-  }
+  if (saved === "light") applyTheme(true);
+  else if (saved === "dark") applyTheme(false);
+  else applyTheme(isDayTime());
 }
-
 setInterval(() => {
-  if (!localStorage.getItem("themeMode")) {
-    applyTheme(isDayTime());
-  }
+  if (!localStorage.getItem("themeMode")) applyTheme(isDayTime());
 }, 60000);
-
 if (toggleModeButton) {
   toggleModeButton.addEventListener("click", () => {
-    const isCurrentlyLight = body.classList.contains("light-mode");
-    const newIsLight = !isCurrentlyLight;
+    const newIsLight = !body.classList.contains("light-mode");
     applyTheme(newIsLight);
     localStorage.setItem("themeMode", newIsLight ? "light" : "dark");
   });
 }
-
 initTheme();
 
 /* =============================================
@@ -244,7 +240,6 @@ initTheme();
 function showContent(target, activeBtn, inactiveBtn) {
   const eduContent = document.getElementById("education");
   const expContent = document.getElementById("experience");
-
   if (target === "education") {
     if (eduContent) {
       eduContent.style.display = "";
@@ -264,7 +259,6 @@ function showContent(target, activeBtn, inactiveBtn) {
       eduContent.classList.remove("qualification__active");
     }
   }
-
   const aBtn = document.getElementById(activeBtn);
   const iBtn = document.getElementById(inactiveBtn);
   if (aBtn) aBtn.classList.add("qualification__active");
@@ -277,23 +271,16 @@ function showContent(target, activeBtn, inactiveBtn) {
 const scriptURL =
   "https://script.google.com/macros/s/AKfycbwyk6Y58ZWv0z5SfwizH-y_kO3VJv8Anpx0otR5HyBp5v8Zf8GTFtYCrPCQKajr_oY/exec";
 const form = document.getElementById("contactForm");
-
 if (form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const t = window.i18n ? window.i18n.t.bind(window.i18n) : (k) => k;
-    const successMsg = t("contact.successMsg") || "Message sent successfully!";
-    const failMsg = t("contact.failMsg") || "Failed to send message";
-
-    fetch(scriptURL, {
-      method: "POST",
-      body: new FormData(form),
-    })
+    fetch(scriptURL, { method: "POST", body: new FormData(form) })
       .then(() => {
-        alert(successMsg);
+        alert(t("contact.successMsg") || "Message sent successfully!");
         form.reset();
       })
-      .catch(() => alert(failMsg));
+      .catch(() => alert(t("contact.failMsg") || "Failed to send message"));
   });
 }
 
@@ -305,7 +292,6 @@ if (form) {
   const prevBtn = document.getElementById("expPrev");
   const nextBtn = document.getElementById("expNext");
   const dots = document.querySelectorAll(".exp-dot");
-
   if (!track || !prevBtn || !nextBtn) return;
 
   const slides = track.querySelectorAll(".exp-slide");
@@ -318,18 +304,12 @@ if (form) {
     if (idx >= total) idx = 0;
     current = idx;
     track.style.transform = `translateX(-${current * 100}%)`;
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("active", i === current);
-    });
+    dots.forEach((dot, i) => dot.classList.toggle("active", i === current));
   }
-
   function startAuto() {
     stopAuto();
-    autoTimer = setInterval(() => {
-      goTo(current + 1);
-    }, 4000);
+    autoTimer = setInterval(() => goTo(current + 1), 4000);
   }
-
   function stopAuto() {
     if (autoTimer) clearInterval(autoTimer);
   }
@@ -344,20 +324,15 @@ if (form) {
     stopAuto();
     startAuto();
   });
-
   dots.forEach((dot) => {
     dot.addEventListener("click", () => {
-      const idx = parseInt(dot.getAttribute("data-idx"), 10);
-      goTo(idx);
+      goTo(parseInt(dot.getAttribute("data-idx"), 10));
       stopAuto();
       startAuto();
     });
   });
 
-  // Touch / swipe
   let touchStartX = 0;
-  let touchEndX = 0;
-
   track.addEventListener(
     "touchstart",
     (e) => {
@@ -365,12 +340,10 @@ if (form) {
     },
     { passive: true },
   );
-
   track.addEventListener(
     "touchend",
     (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const diff = touchStartX - touchEndX;
+      const diff = touchStartX - e.changedTouches[0].screenX;
       if (Math.abs(diff) > 40) {
         goTo(diff > 0 ? current + 1 : current - 1);
         stopAuto();
@@ -385,7 +358,7 @@ if (form) {
 })();
 
 /* =============================================
-   INIT WORD ANIMATION (must be after DOM ready)
+   INIT on DOMContentLoaded
    ============================================= */
 document.addEventListener("DOMContentLoaded", () => {
   initWordAnimation();
