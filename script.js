@@ -33,7 +33,7 @@ function initWordAnimation() {
         wordElements[0].style.opacity = "1";
         wordElements[0].style.transform = "translateY(0)";
       }
-      wordInterval = setInterval(changeWord, 3000);
+      wordInterval = setInterval(changeWord, 4000);
     });
   });
 }
