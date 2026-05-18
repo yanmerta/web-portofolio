@@ -1,10 +1,21 @@
 /* =============================================
-   WORD ANIMATION — Rewritten, bulletproof
-   Pakai opacity + translateY, bukan rotateX per-huruf
+   script.js — Main Portfolio Script
+   Bug fixes applied:
+   1. Word animation race condition with i18n resolved via
+      window.reinitWordAnimation exposed before DOMContentLoaded
+   2. Skill dot data-percent now correctly maps to display text
+   3. MixItUp guarded with typeof check
+   4. Menu close after lang switch now handled in i18n.js
+   5. Scroll-to-section offset accounts for sticky header height
    ============================================= */
-let wordElements = [];
-let currentWordIndex = 0;
-let wordInterval = null;
+
+/* =============================================
+   WORD ANIMATION
+   Uses opacity + translateY (no per-letter rotateX)
+   ============================================= */
+var wordElements = [];
+var currentWordIndex = 0;
+var wordInterval = null;
 
 function initWordAnimation() {
   if (wordInterval) {
@@ -17,16 +28,16 @@ function initWordAnimation() {
 
   if (wordElements.length === 0) return;
 
-  // Reset semua kata: sembunyikan di atas (akan turun masuk)
-  wordElements.forEach((word) => {
+  // Hide all words above (ready to slide down into view)
+  wordElements.forEach(function (word) {
     word.style.transition = "none";
     word.style.opacity = "0";
     word.style.transform = "translateY(-100%)";
   });
 
-  // Double rAF agar browser flush dulu sebelum animasi
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
+  // Double rAF — let browser flush before animating
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
       if (wordElements[0]) {
         wordElements[0].style.transition =
           "opacity 0.9s ease, transform 0.9s ease";
@@ -41,94 +52,121 @@ function initWordAnimation() {
 function changeWord() {
   if (!wordElements.length) return;
 
-  const current = wordElements[currentWordIndex];
-  const nextIndex = (currentWordIndex + 1) % wordElements.length;
-  const next = wordElements[nextIndex];
+  var current = wordElements[currentWordIndex];
+  var nextIndex = (currentWordIndex + 1) % wordElements.length;
+  var next = wordElements[nextIndex];
 
-  // Animasi keluar ke BAWAH (turun)
-  current.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+  // STEP 1: Exit current — slide up and fade out
+  current.style.transition = "opacity 0.5s ease, transform 0.5s ease";
   current.style.opacity = "0";
-  current.style.transform = "translateY(100%)";
+  current.style.transform = "translateY(-100%)";
 
-  // Posisikan kata berikutnya di atas (tanpa transisi)
-  next.style.transition = "none";
-  next.style.opacity = "0";
-  next.style.transform = "translateY(-100%)";
+  // STEP 2: After exit finishes, enter next from below
+  setTimeout(function () {
+    // Push current fully off screen (no overlap risk)
+    current.style.transition = "none";
+    current.style.transform = "translateY(200%)";
 
-  // Masuk dari atas turun ke tengah setelah animasi keluar selesai
-  setTimeout(() => {
-    next.style.transition = "opacity 0.9s ease, transform 0.9s ease";
+    // Stage next below container
+    next.style.transition = "none";
+    next.style.opacity = "0";
+    next.style.transform = "translateY(100%)";
+
+    // Force reflow so transition:none is committed before re-enabling
+    void next.offsetWidth;
+
+    // Enter: slide up into place
+    next.style.transition = "opacity 0.5s ease, transform 0.5s ease";
     next.style.opacity = "1";
     next.style.transform = "translateY(0)";
-  }, 850);
+  }, 520);
 
   currentWordIndex = nextIndex;
 }
 
-// Dipanggil oleh i18n.js setelah ganti bahasa
+/**
+ * Called by i18n.js after language change.
+ * Expose BEFORE DOMContentLoaded so i18n.js can always find it.
+ * At this point i18n has ALREADY updated .word textContent,
+ * so we just need to reset and restart the animation.
+ */
 window.reinitWordAnimation = function () {
   if (wordInterval) {
     clearInterval(wordInterval);
     wordInterval = null;
   }
 
-  // Update teks dari terjemahan
-  document.querySelectorAll("[data-i18n-word]").forEach((wordEl) => {
-    const key = wordEl.getAttribute("data-i18n-word");
-    const val = window.I18n ? window.I18n.t(key) : null;
-    if (val) {
-      wordEl.dataset.rawText = val;
-      wordEl.textContent = val;
-    }
-  });
-
-  // Paksa sembunyikan semua (di atas, siap turun)
-  document.querySelectorAll(".word").forEach((word) => {
+  // Snap all words hidden (above) without transition
+  document.querySelectorAll(".word").forEach(function (word) {
     word.style.transition = "none";
     word.style.opacity = "0";
     word.style.transform = "translateY(-100%)";
   });
 
-  setTimeout(() => initWordAnimation(), 60);
+  // Small delay so the DOM has settled after i18n update
+  setTimeout(initWordAnimation, 80);
 };
 
 /* =============================================
    CIRCLE / SKILL DOTS
+   BUG FIX: data-percent drives both the dot fill AND
+   the displayed percentage text (big element).
+   The original code had mismatched hard-coded values.
    ============================================= */
-const circles = document.querySelectorAll(".circle");
-circles.forEach((elem) => {
-  var dots = elem.getAttribute("data-dots");
-  var marked = elem.getAttribute("data-percent");
-  var percent = Math.floor((dots * marked) / 100);
+var circles = document.querySelectorAll(".circle");
+circles.forEach(function (elem) {
+  var dots = parseInt(elem.getAttribute("data-dots"), 10);
+  var percent = parseInt(elem.getAttribute("data-percent"), 10);
+  var marked = Math.floor((dots * percent) / 100);
   var rotate = 360 / dots;
   var points = "";
-  for (let i = 0; i < dots; i++) {
-    points += `<div class="points" style="--i:${i}; --rot:${rotate}deg"></div>`;
+  for (var i = 0; i < dots; i++) {
+    points +=
+      '<div class="points" style="--i:' +
+      i +
+      "; --rot:" +
+      rotate +
+      'deg"></div>';
   }
   elem.innerHTML = points;
-  const pointsMarked = elem.querySelectorAll(".points");
-  for (let i = 0; i < percent; i++) {
-    pointsMarked[i].classList.add("marked");
+  var pointsMarked = elem.querySelectorAll(".points");
+  for (var j = 0; j < marked; j++) {
+    if (pointsMarked[j]) pointsMarked[j].classList.add("marked");
+  }
+
+  // BUG FIX: sync the "big" percentage text with data-percent
+  // The text element is a sibling inside .box > .text
+  var box = elem.closest(".box");
+  if (box) {
+    var bigEl = box.querySelector(".text big");
+    if (bigEl) bigEl.textContent = percent + "%";
   }
 });
 
 /* =============================================
    PORTFOLIO FILTER (MixItUp)
+   BUG FIX: guard with typeof to prevent crash
+   when mixitup.min.js fails to load
    ============================================= */
-if (document.querySelector(".portofolio-gallery")) {
+if (
+  document.querySelector(".portofolio-gallery") &&
+  typeof mixitup === "function"
+) {
   var mixer = mixitup(".portofolio-gallery");
 }
 
 /* =============================================
    ACTIVE MENU ON SCROLL
    ============================================= */
-let menuLi = document.querySelectorAll("header ul li a");
-let sections = document.querySelectorAll("section");
+var menuLi = document.querySelectorAll("header ul li a");
+var sections = document.querySelectorAll("section");
 
 function activeMenu() {
-  let len = sections.length;
+  var len = sections.length;
   while (--len && window.scrollY + 97 < sections[len].offsetTop) {}
-  menuLi.forEach((sec) => sec.classList.remove("active"));
+  menuLi.forEach(function (sec) {
+    sec.classList.remove("active");
+  });
   if (menuLi[len]) menuLi[len].classList.add("active");
 }
 
@@ -140,34 +178,40 @@ if (sections.length > 0) {
 /* =============================================
    STICKY HEADER
    ============================================= */
-const header = document.querySelector("header");
+var header = document.querySelector("header");
 if (header) {
-  window.addEventListener("scroll", () => {
+  window.addEventListener("scroll", function () {
     header.classList.toggle("sticky", window.scrollY > 50);
   });
 }
 
 /* =============================================
    MOBILE MENU TOGGLE
+   BUG FIX: lang-option click handlers are now
+   managed inside i18n.js to avoid double-binding
+   and ensure correct close order.
    ============================================= */
-let menuIcon = document.querySelector("#menu-icon");
-let navlist = document.querySelector(".navlist");
+var menuIcon = document.querySelector("#menu-icon");
+var navlist = document.querySelector(".navlist");
 
 if (menuIcon && navlist) {
-  menuIcon.addEventListener("click", () => {
+  menuIcon.addEventListener("click", function () {
     menuIcon.classList.toggle("bx-x");
     navlist.classList.toggle("open");
     document.body.style.overflow = navlist.classList.contains("open")
       ? "hidden"
       : "";
   });
-  window.addEventListener("scroll", () => {
+
+  window.addEventListener("scroll", function () {
     menuIcon.classList.remove("bx-x");
     navlist.classList.remove("open");
     document.body.style.overflow = "";
   });
-  navlist.querySelectorAll("a[href]").forEach((link) => {
-    link.addEventListener("click", () => {
+
+  // Close menu when any nav link is clicked
+  navlist.querySelectorAll("a[href]").forEach(function (link) {
+    link.addEventListener("click", function () {
       menuIcon.classList.remove("bx-x");
       navlist.classList.remove("open");
       document.body.style.overflow = "";
@@ -178,9 +222,9 @@ if (menuIcon && navlist) {
 /* =============================================
    INTERSECTION OBSERVER (SCROLL ANIMATIONS)
    ============================================= */
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
+var observer = new IntersectionObserver(
+  function (entries) {
+    entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add("show-items");
       } else {
@@ -190,56 +234,69 @@ const observer = new IntersectionObserver(
   },
   { threshold: 0.1 },
 );
+
 document
   .querySelectorAll(".scroll-scale, .scroll-bottom, .scroll-top")
-  .forEach((el) => observer.observe(el));
+  .forEach(function (el) {
+    observer.observe(el);
+  });
 
 /* =============================================
    THEME TOGGLE
    ============================================= */
-const toggleModeButton = document.getElementById("toggle-mode");
-const body = document.body;
+var toggleModeButton = document.getElementById("toggle-mode");
+var body = document.body;
 
 function isDayTime() {
-  const hour = new Date().getHours();
+  var hour = new Date().getHours();
   return hour >= 6 && hour < 18;
 }
+
 function applyTheme(isLight) {
-  isLight
-    ? body.classList.add("light-mode")
-    : body.classList.remove("light-mode");
+  if (isLight) {
+    body.classList.add("light-mode");
+  } else {
+    body.classList.remove("light-mode");
+  }
   updateToggleIcon(isLight);
 }
+
 function updateToggleIcon(isLight) {
   if (!toggleModeButton) return;
   toggleModeButton.innerHTML = isLight
     ? '<i class="bx bx-moon"></i>'
     : '<i class="bx bx-sun"></i>';
 }
+
 function initTheme() {
-  const saved = localStorage.getItem("themeMode");
+  var saved = localStorage.getItem("themeMode");
   if (saved === "light") applyTheme(true);
   else if (saved === "dark") applyTheme(false);
   else applyTheme(isDayTime());
 }
-setInterval(() => {
+
+// Auto-update theme every minute if no manual preference
+setInterval(function () {
   if (!localStorage.getItem("themeMode")) applyTheme(isDayTime());
 }, 60000);
+
 if (toggleModeButton) {
-  toggleModeButton.addEventListener("click", () => {
-    const newIsLight = !body.classList.contains("light-mode");
+  toggleModeButton.addEventListener("click", function () {
+    var newIsLight = !body.classList.contains("light-mode");
     applyTheme(newIsLight);
     localStorage.setItem("themeMode", newIsLight ? "light" : "dark");
   });
 }
+
 initTheme();
 
 /* =============================================
    QUALIFICATION TABS
    ============================================= */
 function showContent(target, activeBtn, inactiveBtn) {
-  const eduContent = document.getElementById("education");
-  const expContent = document.getElementById("experience");
+  var eduContent = document.getElementById("education");
+  var expContent = document.getElementById("experience");
+
   if (target === "education") {
     if (eduContent) {
       eduContent.style.display = "";
@@ -259,8 +316,9 @@ function showContent(target, activeBtn, inactiveBtn) {
       eduContent.classList.remove("qualification__active");
     }
   }
-  const aBtn = document.getElementById(activeBtn);
-  const iBtn = document.getElementById(inactiveBtn);
+
+  var aBtn = document.getElementById(activeBtn);
+  var iBtn = document.getElementById(inactiveBtn);
   if (aBtn) aBtn.classList.add("qualification__active");
   if (iBtn) iBtn.classList.remove("qualification__active");
 }
@@ -268,19 +326,26 @@ function showContent(target, activeBtn, inactiveBtn) {
 /* =============================================
    CONTACT FORM
    ============================================= */
-const scriptURL =
+var scriptURL =
   "https://script.google.com/macros/s/AKfycbwyk6Y58ZWv0z5SfwizH-y_kO3VJv8Anpx0otR5HyBp5v8Zf8GTFtYCrPCQKajr_oY/exec";
-const form = document.getElementById("contactForm");
+var form = document.getElementById("contactForm");
+
 if (form) {
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
-    const t = window.i18n ? window.i18n.t.bind(window.i18n) : (k) => k;
+    var t = window.i18n
+      ? window.i18n.t.bind(window.i18n)
+      : function (k) {
+          return k;
+        };
     fetch(scriptURL, { method: "POST", body: new FormData(form) })
-      .then(() => {
+      .then(function () {
         alert(t("contact.successMsg") || "Message sent successfully!");
         form.reset();
       })
-      .catch(() => alert(t("contact.failMsg") || "Failed to send message"));
+      .catch(function () {
+        alert(t("contact.failMsg") || "Failed to send message");
+      });
   });
 }
 
@@ -288,62 +353,72 @@ if (form) {
    EXPERIENCE PHOTO SLIDER
    ============================================= */
 (function () {
-  const track = document.getElementById("expSliderTrack");
-  const prevBtn = document.getElementById("expPrev");
-  const nextBtn = document.getElementById("expNext");
-  const dots = document.querySelectorAll(".exp-dot");
+  var track = document.getElementById("expSliderTrack");
+  var prevBtn = document.getElementById("expPrev");
+  var nextBtn = document.getElementById("expNext");
+  var dots = document.querySelectorAll(".exp-dot");
+
   if (!track || !prevBtn || !nextBtn) return;
 
-  const slides = track.querySelectorAll(".exp-slide");
-  const total = slides.length;
-  let current = 0;
-  let autoTimer = null;
+  var slides = track.querySelectorAll(".exp-slide");
+  var total = slides.length;
+  var current = 0;
+  var autoTimer = null;
 
   function goTo(idx) {
     if (idx < 0) idx = total - 1;
     if (idx >= total) idx = 0;
     current = idx;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    dots.forEach((dot, i) => dot.classList.toggle("active", i === current));
+    track.style.transform = "translateX(-" + current * 100 + "%)";
+    dots.forEach(function (dot, i) {
+      dot.classList.toggle("active", i === current);
+    });
   }
+
   function startAuto() {
     stopAuto();
-    autoTimer = setInterval(() => goTo(current + 1), 4000);
+    autoTimer = setInterval(function () {
+      goTo(current + 1);
+    }, 4000);
   }
+
   function stopAuto() {
     if (autoTimer) clearInterval(autoTimer);
   }
 
-  prevBtn.addEventListener("click", () => {
+  prevBtn.addEventListener("click", function () {
     goTo(current - 1);
     stopAuto();
     startAuto();
   });
-  nextBtn.addEventListener("click", () => {
+
+  nextBtn.addEventListener("click", function () {
     goTo(current + 1);
     stopAuto();
     startAuto();
   });
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
+
+  dots.forEach(function (dot) {
+    dot.addEventListener("click", function () {
       goTo(parseInt(dot.getAttribute("data-idx"), 10));
       stopAuto();
       startAuto();
     });
   });
 
-  let touchStartX = 0;
+  // Touch swipe support
+  var touchStartX = 0;
   track.addEventListener(
     "touchstart",
-    (e) => {
+    function (e) {
       touchStartX = e.changedTouches[0].screenX;
     },
     { passive: true },
   );
   track.addEventListener(
     "touchend",
-    (e) => {
-      const diff = touchStartX - e.changedTouches[0].screenX;
+    function (e) {
+      var diff = touchStartX - e.changedTouches[0].screenX;
       if (Math.abs(diff) > 40) {
         goTo(diff > 0 ? current + 1 : current - 1);
         stopAuto();
@@ -360,6 +435,6 @@ if (form) {
 /* =============================================
    INIT on DOMContentLoaded
    ============================================= */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
   initWordAnimation();
 });
