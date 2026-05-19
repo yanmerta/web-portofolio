@@ -31,7 +31,6 @@
           <i class='bx bx-chevron-down lang-arrow' id="langArrow"></i>
         </button>
         <div class="lang-dropdown" id="langDropdown">
-          <!-- FIX B9: dropdown diisi dinamis oleh i18n.js via buildDropdown() -->
           <button class="lang-option" data-lang="id" id="optId">
             <span>🇮🇩</span> Bahasa Indonesia
           </button>
@@ -50,12 +49,11 @@
   <!-- ==================== HOME ==================== -->
   <section id="home" class="home">
     <div class="home-content scroll-scale">
-      <!-- FIX B10: teks fallback diseragamkan dengan i18n key "Hi I'm Yan Merta" (bukan Wayan) -->
-      <h1 data-i18n="home.greeting">Hi I'm Wayan Merta</h1>
+      <h1 data-i18n="home.greeting">Hi I'm Yan Merta</h1>
       <div class="change-text">
         <h3 data-i18n="home.andIm">And I'm</h3>
         <h3>
-          <span class="word" data-i18n-word="home.word1">Software&nbsp;Engineer</span>
+          <span class="word" data-i18n-word="home.word1">Student</span>
           <span class="word" data-i18n-word="home.word2">Gamer</span>
           <span class="word" data-i18n-word="home.word3">Web&nbsp;Designer</span>
           <span class="word" data-i18n-word="home.word4">Frontend&nbsp;Developer</span>
@@ -173,40 +171,56 @@
           <div class="exp-slide-img">
             <img src="image/Red.jpeg" alt="Magang PT. Guna Teknologi Nusantara">
             <div class="exp-slide-overlay">
-              <!-- FIX B12: tambahkan data-i18n agar teks slide bisa ditranslasi -->
               <span class="exp-slide-tag">
-                <i class='bx bx-code-alt'></i>
-                <span data-i18n="exp.slide1">PT. Guna Teknologi Nusantara — Denpasar, Bali</span>
+                <i class='bx bx-code-alt'></i> PT. Guna Teknologi Nusantara — Denpasar, Bali
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="exp-slide">
+          <div class="exp-slide-img">
+            <img src="image/bkpsdm.jpg" alt="Magang BKSDM Buleleng">
+            <div class="exp-slide-overlay">
+              <span class="exp-slide-tag">
+                <i class='bx bx-code-alt'></i> Internship BKSDM — Buleleng, Bali
               </span>
             </div>
           </div>
         </div>
         <!-- Slide 2 -->
-        <div class="exp-slide">
+        <!-- <div class="exp-slide">
           <div class="exp-slide-img">
             <img src="image/bkpsdm.jpg" alt="Magang BKSDM Buleleng">
             <div class="exp-slide-overlay">
-              <!-- FIX B12: tambahkan data-i18n agar teks slide bisa ditranslasi -->
               <span class="exp-slide-tag">
-                <i class='bx bx-code-alt'></i>
+                <i class='bx bx-building'></i>
                 <span data-i18n="exp.slide2">Internship BKSDM — Buleleng, Bali</span>
               </span>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- Slide 3 -->
         <div class="exp-slide">
           <div class="exp-slide-img">
             <img src="image/Bri.jpeg" alt="Bank BRI Petugas Bansos">
             <div class="exp-slide-overlay">
-              <!-- FIX B12: tambahkan data-i18n agar teks slide bisa ditranslasi -->
               <span class="exp-slide-tag">
-                <i class='bx bx-code-alt'></i>
-                <span data-i18n="exp.slide3">Bank BRI — Social Aid Officer</span>
+                <i class='bx bx-code-alt'></i>Bank BRI — Social Aid Officer
               </span>
             </div>
           </div>
         </div>
+        <!-- <div class="exp-slide">
+          <div class="exp-slide-img">
+            <img src="image/Bri.jpeg" alt="Bank BRI Petugas Bansos">
+            <div class="exp-slide-overlay">
+              <span class="exp-slide-tag exp-slide-tag-bri">
+                <i class='bx bx-credit-card'></i>
+                <span data-i18n="exp.slide3">Bank BRI — Social Aid Officer</span>
+              </span>
+            </div>
+          </div>
+        </div> -->
       </div>
 
       <button class="exp-slider-btn exp-slider-prev" id="expPrev" aria-label="Previous slide">
@@ -216,8 +230,11 @@
         <i class='bx bx-chevron-right'></i>
       </button>
 
-      <!-- FIX B5: dots dikosongkan — akan diisi secara dinamis oleh script.js -->
-      <div class="exp-slider-dots" id="expDots"></div>
+      <div class="exp-slider-dots" id="expDots">
+        <span class="exp-dot active" data-idx="0"></span>
+        <span class="exp-dot" data-idx="1"></span>
+        <span class="exp-dot" data-idx="2"></span>
+      </div>
     </div>
 
     <div class="exp-cards scroll-bottom">
@@ -283,7 +300,6 @@
         <div class="exp-card-meta">
           <span><i class='bx bx-map-pin'></i> Buleleng, Bali</span>
           <span><i class='bx bx-briefcase-alt-2'></i>
-            <!-- FIX B3: tambahkan data-i18n="exp.card2.role" agar bisa ditranslasi -->
             <span data-i18n="exp.card2.role">Field: Apparatus Competency</span>
           </span>
         </div>
@@ -337,8 +353,7 @@
         <div class="exp-card-meta">
           <span><i class='bx bx-map-pin'></i> Bali</span>
           <span><i class='bx bx-calendar'></i>
-            <!-- FIX B2 & B11: tambahkan data-i18n dan seragamkan teks fallback -->
-            <span data-i18n="exp.card3.period">2024 – Present</span>
+            <span data-i18n="exp.card3.period">October 2026 – Present</span>
           </span>
         </div>
         <p class="exp-card-desc" data-i18n="exp.card3.desc">
@@ -438,7 +453,6 @@
           </div>
           <div class="bar"><span class="javascript"></span></div>
         </div>
-        <!-- FIX B4: label dan bar CSS diseragamkan ke 72% -->
         <div class="skill-bar">
           <div class="info">
             <p>CSS</p>
@@ -450,27 +464,17 @@
       <div class="skill-right scroll-scale">
         <h3 data-i18n="skills.professional">Professional Skills</h3>
         <div class="professional">
-          <!--
-            FIX B1: data-percent dan teks <big> harus sinkron.
-            Sebelumnya:
-              Team Work   → data-percent="80"  tapi <big>90%</big>  ← salah
-              Creativity  → data-percent="90"  tapi <big>80%</big>  ← salah
-              Communication → data-percent="70" tapi <big>70%</big> ← benar
-              Project Mgmt  → data-percent="55" tapi <big>80%</big> ← salah
-            Setelah fix: teks <big> diisi oleh JS dari data-percent,
-            nilai awal HTML diseragamkan agar tidak ada flash of wrong content.
-          -->
           <div class="box">
             <div class="circle" data-dots="90" data-percent="80"></div>
             <div class="text">
-              <big>80%</big>
+              <big>90%</big>
               <small data-i18n="skills.teamwork">Team Work</small>
             </div>
           </div>
           <div class="box">
             <div class="circle" data-dots="90" data-percent="90"></div>
             <div class="text">
-              <big>90%</big>
+              <big>80%</big>
               <small data-i18n="skills.creativity">Creativity</small>
             </div>
           </div>
@@ -484,7 +488,7 @@
           <div class="box">
             <div class="circle" data-dots="90" data-percent="55"></div>
             <div class="text">
-              <big>55%</big>
+              <big>80%</big>
               <small data-i18n="skills.projectMgmt">Project Management</small>
             </div>
           </div>
