@@ -3,15 +3,19 @@
    Bug fixes applied:
    1. Word animation race condition with i18n resolved via
       window.reinitWordAnimation exposed before DOMContentLoaded
-   2. Skill dot data-percent now correctly maps to display text
+   2. Skill dot data-percent correctly maps to display text (B1)
    3. MixItUp guarded with typeof check
-   4. Menu close after lang switch now handled in i18n.js
+   4. Menu close after lang switch handled in i18n.js
    5. Scroll-to-section offset accounts for sticky header height
+   6. FIX B5: Exp slider dots dibuat secara dinamis dari JS,
+      tidak lagi hard-coded di HTML — jumlah dot selalu sinkron
+      dengan jumlah slide yang aktif
+   7. FIX B7: activeMenu() diberi guard len >= 0 agar tidak
+      crash saat scroll berada di atas section pertama
    ============================================= */
 
 /* =============================================
    WORD ANIMATION
-   Uses opacity + translateY (no per-letter rotateX)
    ============================================= */
 var wordElements = [];
 var currentWordIndex = 0;
@@ -28,14 +32,12 @@ function initWordAnimation() {
 
   if (wordElements.length === 0) return;
 
-  // Hide all words above (ready to slide down into view)
   wordElements.forEach(function (word) {
     word.style.transition = "none";
     word.style.opacity = "0";
     word.style.transform = "translateY(-100%)";
   });
 
-  // Double rAF — let browser flush before animating
   requestAnimationFrame(function () {
     requestAnimationFrame(function () {
       if (wordElements[0]) {
@@ -56,26 +58,20 @@ function changeWord() {
   var nextIndex = (currentWordIndex + 1) % wordElements.length;
   var next = wordElements[nextIndex];
 
-  // STEP 1: Exit current — slide up and fade out
   current.style.transition = "opacity 0.5s ease, transform 0.5s ease";
   current.style.opacity = "0";
   current.style.transform = "translateY(-100%)";
 
-  // STEP 2: After exit finishes, enter next from below
   setTimeout(function () {
-    // Push current fully off screen (no overlap risk)
     current.style.transition = "none";
     current.style.transform = "translateY(200%)";
 
-    // Stage next below container
     next.style.transition = "none";
     next.style.opacity = "0";
     next.style.transform = "translateY(100%)";
 
-    // Force reflow so transition:none is committed before re-enabling
     void next.offsetWidth;
 
-    // Enter: slide up into place
     next.style.transition = "opacity 0.5s ease, transform 0.5s ease";
     next.style.opacity = "1";
     next.style.transform = "translateY(0)";
@@ -84,34 +80,27 @@ function changeWord() {
   currentWordIndex = nextIndex;
 }
 
-/**
- * Called by i18n.js after language change.
- * Expose BEFORE DOMContentLoaded so i18n.js can always find it.
- * At this point i18n has ALREADY updated .word textContent,
- * so we just need to reset and restart the animation.
- */
 window.reinitWordAnimation = function () {
   if (wordInterval) {
     clearInterval(wordInterval);
     wordInterval = null;
   }
 
-  // Snap all words hidden (above) without transition
   document.querySelectorAll(".word").forEach(function (word) {
     word.style.transition = "none";
     word.style.opacity = "0";
     word.style.transform = "translateY(-100%)";
   });
 
-  // Small delay so the DOM has settled after i18n update
   setTimeout(initWordAnimation, 80);
 };
 
 /* =============================================
    CIRCLE / SKILL DOTS
-   BUG FIX: data-percent drives both the dot fill AND
-   the displayed percentage text (big element).
-   The original code had mismatched hard-coded values.
+   FIX B1: data-percent drives both dot fill AND
+   displayed percentage text (big element) —
+   nilai big di HTML sudah diseragamkan, tapi JS
+   ini tetap meng-override untuk keamanan.
    ============================================= */
 var circles = document.querySelectorAll(".circle");
 circles.forEach(function (elem) {
@@ -134,8 +123,7 @@ circles.forEach(function (elem) {
     if (pointsMarked[j]) pointsMarked[j].classList.add("marked");
   }
 
-  // BUG FIX: sync the "big" percentage text with data-percent
-  // The text element is a sibling inside .box > .text
+  /* FIX B1: sinkronkan teks <big> dengan data-percent */
   var box = elem.closest(".box");
   if (box) {
     var bigEl = box.querySelector(".text big");
@@ -145,8 +133,6 @@ circles.forEach(function (elem) {
 
 /* =============================================
    PORTFOLIO FILTER (MixItUp)
-   BUG FIX: guard with typeof to prevent crash
-   when mixitup.min.js fails to load
    ============================================= */
 if (
   document.querySelector(".portofolio-gallery") &&
@@ -157,6 +143,8 @@ if (
 
 /* =============================================
    ACTIVE MENU ON SCROLL
+   FIX B7: tambahkan guard len >= 0 agar tidak
+   crash ketika scroll di atas section pertama
    ============================================= */
 var menuLi = document.querySelectorAll("header ul li a");
 var sections = document.querySelectorAll("section");
@@ -164,10 +152,15 @@ var sections = document.querySelectorAll("section");
 function activeMenu() {
   var len = sections.length;
   while (--len && window.scrollY + 97 < sections[len].offsetTop) {}
+
   menuLi.forEach(function (sec) {
     sec.classList.remove("active");
   });
-  if (menuLi[len]) menuLi[len].classList.add("active");
+
+  /* FIX B7: guard agar tidak mengakses index negatif */
+  if (len >= 0 && menuLi[len]) {
+    menuLi[len].classList.add("active");
+  }
 }
 
 if (sections.length > 0) {
@@ -187,9 +180,6 @@ if (header) {
 
 /* =============================================
    MOBILE MENU TOGGLE
-   BUG FIX: lang-option click handlers are now
-   managed inside i18n.js to avoid double-binding
-   and ensure correct close order.
    ============================================= */
 var menuIcon = document.querySelector("#menu-icon");
 var navlist = document.querySelector(".navlist");
@@ -209,7 +199,6 @@ if (menuIcon && navlist) {
     document.body.style.overflow = "";
   });
 
-  // Close menu when any nav link is clicked
   navlist.querySelectorAll("a[href]").forEach(function (link) {
     link.addEventListener("click", function () {
       menuIcon.classList.remove("bx-x");
@@ -275,7 +264,6 @@ function initTheme() {
   else applyTheme(isDayTime());
 }
 
-// Auto-update theme every minute if no manual preference
 setInterval(function () {
   if (!localStorage.getItem("themeMode")) applyTheme(isDayTime());
 }, 60000);
@@ -325,6 +313,8 @@ function showContent(target, activeBtn, inactiveBtn) {
 
 /* =============================================
    CONTACT FORM
+   FIX B6: akses window.i18n dengan fallback
+   yang lebih eksplisit dan aman
    ============================================= */
 var scriptURL =
   "https://script.google.com/macros/s/AKfycbwyk6Y58ZWv0z5SfwizH-y_kO3VJv8Anpx0otR5HyBp5v8Zf8GTFtYCrPCQKajr_oY/exec";
@@ -333,44 +323,72 @@ var form = document.getElementById("contactForm");
 if (form) {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    var t = window.i18n
-      ? window.i18n.t.bind(window.i18n)
-      : function (k) {
-          return k;
-        };
+    /* FIX B6: gunakan optional chaining yang aman */
+    function getMsg(key, fallback) {
+      if (window.i18n && typeof window.i18n.t === "function") {
+        var val = window.i18n.t(key);
+        return val !== key ? val : fallback;
+      }
+      return fallback;
+    }
     fetch(scriptURL, { method: "POST", body: new FormData(form) })
       .then(function () {
-        alert(t("contact.successMsg") || "Message sent successfully!");
+        alert(getMsg("contact.successMsg", "Message sent successfully!"));
         form.reset();
       })
       .catch(function () {
-        alert(t("contact.failMsg") || "Failed to send message");
+        alert(getMsg("contact.failMsg", "Failed to send message"));
       });
   });
 }
 
 /* =============================================
    EXPERIENCE PHOTO SLIDER
+   FIX B5: dots dibuat secara dinamis dari JS
+   berdasarkan jumlah .exp-slide yang ada,
+   tidak lagi bergantung pada markup statis di HTML.
+   Dengan begitu, menambah/menghapus slide di HTML
+   tidak perlu mengubah dots secara manual.
    ============================================= */
 (function () {
   var track = document.getElementById("expSliderTrack");
   var prevBtn = document.getElementById("expPrev");
   var nextBtn = document.getElementById("expNext");
-  var dots = document.querySelectorAll(".exp-dot");
+  var dotsContainer = document.getElementById("expDots");
 
-  if (!track || !prevBtn || !nextBtn) return;
+  if (!track || !prevBtn || !nextBtn || !dotsContainer) return;
 
   var slides = track.querySelectorAll(".exp-slide");
   var total = slides.length;
   var current = 0;
   var autoTimer = null;
 
+  /* FIX B5: Buat dots secara dinamis sesuai jumlah slide */
+  dotsContainer.innerHTML = "";
+  var dotEls = [];
+  for (var d = 0; d < total; d++) {
+    var dot = document.createElement("span");
+    dot.className = "exp-dot" + (d === 0 ? " active" : "");
+    dot.setAttribute("data-idx", d);
+    dotsContainer.appendChild(dot);
+    dotEls.push(dot);
+
+    /* closure untuk menangkap nilai d yang benar */
+    (function (idx) {
+      dot.addEventListener("click", function () {
+        goTo(idx);
+        stopAuto();
+        startAuto();
+      });
+    })(d);
+  }
+
   function goTo(idx) {
     if (idx < 0) idx = total - 1;
     if (idx >= total) idx = 0;
     current = idx;
     track.style.transform = "translateX(-" + current * 100 + "%)";
-    dots.forEach(function (dot, i) {
+    dotEls.forEach(function (dot, i) {
       dot.classList.toggle("active", i === current);
     });
   }
@@ -398,15 +416,7 @@ if (form) {
     startAuto();
   });
 
-  dots.forEach(function (dot) {
-    dot.addEventListener("click", function () {
-      goTo(parseInt(dot.getAttribute("data-idx"), 10));
-      stopAuto();
-      startAuto();
-    });
-  });
-
-  // Touch swipe support
+  /* Touch swipe support */
   var touchStartX = 0;
   track.addEventListener(
     "touchstart",
